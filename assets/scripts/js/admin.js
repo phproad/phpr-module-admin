@@ -76,6 +76,37 @@ var Admin_Page = (function(page, $){
 }(Admin_Page || {}, jQuery));
 
 /*
+ * Initialize tips
+ */
+
+jQuery(document).ready(function($) { 
+	init_tooltips();
+});
+
+function init_tooltips() {
+	(function($){
+		if ($.fn.tooltip !== undefined) {
+			$('a.has-tooltip, span.has-tooltip, li.has-tooltip').tooltip({
+				delay: 500,
+				html: true
+			});
+		}
+	})(jQuery);
+}
+
+function update_tooltips() {
+	init_tooltips();
+}
+
+function hide_tooltips() {
+	(function($){
+		$('a.has-tooltip, span.has-tooltip').each(function(index, e){
+			$(this).tooltip('hide');
+		});
+	})(jQuery);
+}
+
+/*
  * Save trigger function
  */
 
