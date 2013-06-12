@@ -1,0 +1,26 @@
+<? Admin_Breadcrumb::add('Users', 'admin/users')->add($this->app_page_title);?>
+<? Phpr_View::begin_block("head") ?>
+	<script type="text/javascript" src="modules/admin/assets/javascript/user.js"></script>
+<? Phpr_View::end_block() ?>
+<? Phpr_View::begin_block("view") ?>
+	<?=flash()?>
+
+	<? if (!isset($fatal_error)): ?>
+		<div class="form-600">
+			<?=Phpr_Form::open_tag() ?>
+
+				<? $this->form_render() ?>
+
+				<div id="fixed-toolbar" class="top">
+					<div class="form-toolbar">
+						<?=admin_ajax_button('Save', 'edit_on_save', array('class'=>'btn-success')) ?>
+						<?=admin_ajax_button('Cancel', 'edit_on_cancel') ?>
+						<?=admin_ajax_button('Delete', 'edit_on_delete', array('class'=>"btn-danger pull-right"), "confirm: 'Do you really want to delete this user?'") ?>
+					</div>
+				</div>
+			</form>
+		</div>
+	<? else: ?>
+		<p><a href="<?= url('admin/users') ?>">Return to admin user list</a></p>
+	<? endif ?>
+<? Phpr_View::end_block() ?>

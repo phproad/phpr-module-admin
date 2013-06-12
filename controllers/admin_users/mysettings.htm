@@ -1,0 +1,18 @@
+<? Phpr_View::begin_block("view") ?>
+	<div class="offsetTop">
+		<?=flash()?>
+
+		<div class="form-600">
+			<?=Phpr_Form::open_tag() ?>
+				<? $this->form_render() ?>
+
+				<div id="fixed-toolbar" class="top">
+					<div class="form-toolbar">
+						<?=admin_ajax_button('Reset Preferences', 'mysettings_on_reset_preferences', array('class'=>''), "confirm:'Are you sure?', loadIndicator: {hideOnSuccess: true}, update: $(this).getForm().find('.form-flash'), hideErrorOnSuccess: false") ?>
+						<?=admin_ajax_button('Save', 'mysettings_on_save', array('class'=>'btn-success'), "loadIndicator: {hideOnSuccess: true}, update: $(this).getForm().find('.form-flash'), hideErrorOnSuccess: false") ?>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+<? Phpr_View::end_block() ?>

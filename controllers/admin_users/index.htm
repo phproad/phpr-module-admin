@@ -1,0 +1,5 @@
+<? Phpr_View::begin_block("view") ?>
+	<?=flash()?>
+
+	<?=$this->list_render(array('list_control_panel'=>'control_panel')) ?>
+<? Phpr_View::end_block() ?>
