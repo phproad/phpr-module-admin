@@ -72,8 +72,71 @@ var Admin_Page = (function(page, $){
 		return value.toLowerCase();
 	}
 
+	page.hideHint = function(hintName, closeElement, hintElement) {
+		if (hintElement === undefined)
+			hintElement = jQuery(closeElement).closest('div.hint-container');
+
+		if (hintElement.length > 0)
+			hintElement.hide();
+
+		var form = hintElement.getForm();
+
+		return $(form).phpr().post('hint_hide', {
+			data: {
+				'name': hintName
+			},
+			loadIndicator: { show: false }
+		}).send();
+	}
+
 	return page;
 }(Admin_Page || {}, jQuery));
+
+/*
+ * Light loading indicator
+ */
+
+var LightLoadingIndicator = function(options) { 
+
+	var o = {},
+		_options = options || {},
+		_active_request_num = 0,
+		_loading_indicator_element = null;
+
+	o.show = function(message) {
+		_active_request_num++;
+		_create_loading_indicator(message);
+	}
+
+	o.hide = function() {
+		_active_request_num--;
+		if (_active_request_num == 0)
+			_remove_loading_indicator();
+	}
+
+	var _create_loading_indicator = function(message) {
+		if (_loading_indicator_element)
+			return;
+
+		var _body = jQuery('body');
+		_loading_indicator_element = jQuery('<p />')
+			.addClass('light-loading-indicator')
+			.html('<span>' + message + '</span>')
+			.appendTo(_body);
+	}
+
+	var _remove_loading_indicator = function() {
+		if (_loading_indicator_element)
+			_loading_indicator_element.remove();
+
+		_loading_indicator_element = null;
+	}
+
+	return o;
+};
+
+// LightLoadingIndicator = new LightLoadingIndicator();
+
 
 /*
  * Initialize tips
@@ -110,7 +173,6 @@ function hide_tooltips() {
  * Save trigger function
  */
 
-// @depcreated: Use Admin_Page.triggerSave();
 function phprTriggerSave() {
 	Admin_Page.triggerSave();
 }
@@ -122,23 +184,6 @@ function phprTriggerSave() {
 // @depcreated: Use Admin_Page.convertTextToCode();
 function convert_text_to_url(text) {
 	return Admin_Page.convertTextToCode(text);
-}
-
-function hide_hint(hint_name, close_element, hint_element) {
-	if (hint_element === undefined)
-		hint_element = $(close_element).selectParent('div.hint_container');
-
-	if (hint_element)
-		hint_element.hide();
-
-	var form = hint_element.getForm();
-
-	return $(form).sendPhpr('hint_hide', {
-		extraFields: {
-			'name': hint_name
-		},
-		loadIndicator: {show: false}
-	});
 }
 
 jQuery.fn.extend({
