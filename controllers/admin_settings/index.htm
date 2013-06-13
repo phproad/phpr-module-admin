@@ -1,0 +1,21 @@
+<? Phpr_View::begin_block("view") ?>
+
+<?=flash()?>
+<ul class="section-list imagelist">
+	<? foreach ($items as $item) { ?>
+	<?
+		if (substr($item['icon'], 0, 1) == '/')
+			$item['icon'] = substr($item['icon'], 1);
+	?>
+		<li <?=click_link(url($item['url'])) ?>>
+			<div class="list-image">
+				<img src="<?=$item['icon'] ?>" alt="<?=$item['title']?>"/>
+			</div>
+			<h4 class="list-title"><?=$item['title']?></h4>
+			<div class="list-content">
+				<p><?=$item['description']?></p>
+			</div>
+		</li>
+	<? } ?>
+</ul>
+<? Phpr_View::end_block() ?>
