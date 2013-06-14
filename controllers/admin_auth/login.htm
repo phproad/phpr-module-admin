@@ -1,0 +1,59 @@
+<? Phpr_View::begin_block("view") ?>
+
+<?=form_open(array('onsubmit'=>null, 'action'=>url('admin/auth/login'), 'id' => 'login-form')) ?>
+
+	<!-- Error Message -->
+	<?=flash()?>
+
+	<? if ($is_ie): ?>
+		<? $this->display_partial('ie_message') ?>
+	<? else: ?>
+
+		<!-- Passable fields -->
+		<input type="hidden" name="redirect" value="<?=h(post('redirect', $redirect)) ?>" />
+		<input type="hidden" name="postback" value="1" />        
+
+		<!-- Login Message -->
+		<? if (Phpr::$config->get('LOGIN_MESSAGE')): ?>
+			<div class="alert alert-success"><?=Phpr::$config->get('LOGIN_MESSAGE') ?></div>
+		<? endif ?> 
+
+		<!-- Login Form -->
+		<fieldset class="form-elements">
+
+			<div class="control-group text">
+				<label class="control-label">Username</label>
+				<div class="controls">
+					<input name="login" type="text" class="input-user" id="login" value="<?=h(Phpr::$config->get('DEFAULT_LOGIN_USER', post('login'))) ?>" />
+				</div>
+			</div>
+
+			<div class="control-group password">
+				<label class="control-label">Password</label>
+				<div class="controls">
+					<input name="password" type="password" class="input-pass" id="password" value="<?=Phpr::$config->get('DEFAULT_LOGIN_PASSWORD') ?>" />
+				</div>
+			</div>
+
+		</fieldset>
+		
+		<!-- Buttons -->
+		<div class="form-actions">
+			<div class="secondary-link">
+				<a href="<?= url('admin/auth/restore') ?>">Forgot your password?</a>
+			</div>
+			<div class="login-button">
+				<button type="submit" class="btn btn-primary btn-icon">Login</button>
+			</div>
+		</div>
+
+	<? endif ?>
+<?=form_close()?>
+
+<script>
+jQuery(document).ready(function($) {
+	if (window.location.hash == '#autologin')
+		$('#login-form').submit();
+});
+</script>
+<? Phpr_View::end_block() ?>

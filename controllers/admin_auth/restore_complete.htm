@@ -1,0 +1,66 @@
+<? Phpr_View::begin_block("view") ?>
+
+<?=form_open(array('onsubmit'=>'return submit_restore()', 'id' => 'restore-form')) ?>
+
+	<? if (!isset($error)): ?>
+		<div class="form-flash"></div>
+	<? else: ?>
+		<div class="form-flash"><p class="error"><?=h($error) ?></p></div>
+	<? endif ?>
+
+	<? if (isset($error)): ?>
+		<div class="form-actions">
+			<input type="submit" value="Cancel" class="btn" onclick="window.location = '<?=url('admin')?>'; return false" />
+		</div>
+	<? else: ?>
+
+		<fieldset class="form-elements">
+
+			<div class="control-group password">
+				<label class="control-label">Password</label>
+				<div class="controls">
+					<input name="password" type="password" class="input-pass" id="login" value="" />
+					<span class="help-block">Please enter a new password.</span>
+				</div>
+			</div>
+
+			<div class="control-group password">
+				<label class="control-label">Confirm Password</label>
+				<div class="controls">
+					<input name="password_confirm" type="password" class="input-pass" id="password_confirm" value="" />
+					<span class="help-block">Please enter your password again.</span>
+				</div>
+			</div>                
+
+		</fieldset>
+
+		<!-- Buttons -->
+		<div class="form-actions">
+			<div class="secondary-link">
+				<a href="<?= url('admin/auth/login') ?>">Cancel</a>
+			</div>
+			<div class="restore-button">
+				<button type="submit" class="btn btn-primary btn-icon">Restore</button>
+			</div>
+		</div>
+
+	<? endif ?>
+
+<?=form_close()?>
+
+<script>
+function submit_restore() {
+	$('restore-form').sendPhpr('restore_complete_onRestore', {
+		loadIndicator: {
+			element: 'content-inner', 
+			hideOnSuccess: true, 
+			show: true, 
+			injectInElement: true
+		}, 
+		update: 'content-inner'
+	});
+
+	return false;
+}
+</script>
+<? Phpr_View::end_block() ?>

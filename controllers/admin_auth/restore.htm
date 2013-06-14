@@ -1,0 +1,52 @@
+<? Phpr_View::begin_block("view") ?>
+<div id="login-content-inner">
+	<?=form_open(array('onsubmit'=>'return submit_restore()', 'id' => 'restore-form')) ?>
+		
+		<div class="form-flash"></div>
+
+		<!-- Login Message -->
+		<? if (Phpr::$config->get('LOGIN_MESSAGE')): ?>
+			<div class="success"><?=Phpr::$config->get('LOGIN_MESSAGE') ?></div>
+		<? endif ?> 
+
+		<!-- Login Form -->
+		<fieldset class="form-elements">
+
+			<div class="control-group text">
+				<label class="control-label">Username</label>
+				<div class="controls">
+					<input name="login" type="text" class="input-user" id="login" value="" />
+					<span class="help-block">Please specify your username and click Restore. We will send you the password restore instructions by email.</span>
+				</div>
+			</div>
+
+		</fieldset>
+
+		<!-- Buttons -->
+		<div class="form-actions">
+			<div class="secondary-link">
+				<a href="<?= url('admin/auth/login') ?>">Cancel</a>
+			</div>
+			<div class="restore-button">
+				<button type="submit" class="btn btn-primary btn-icon">Restore</button>
+			</div>
+		</div>
+
+	<?=form_close()?>
+</div>
+<script>
+function submit_restore() {
+	$('restore-form').sendPhpr('restore_on_send', {
+		loadIndicator: {
+			element: 'content-inner', 
+			hideOnSuccess: true, 
+			show: true, 
+			injectInElement: true
+		}, 
+		update: 'content-inner'
+	});
+
+	return false;
+}
+</script>
+<? Phpr_View::end_block() ?>
