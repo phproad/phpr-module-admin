@@ -10,7 +10,7 @@ class Admin_Config extends Core_Settings_Base
 	{
 		$config = new self();
 		return $config->load();
-	}   
+	}
 	
 	protected function build_form()
 	{
