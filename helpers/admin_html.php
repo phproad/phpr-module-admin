@@ -40,7 +40,7 @@ class Admin_Html
 				else
 					$form_element = "$('".$form_element."')";
 
-				$update_flash = "update: $(this).getForm().getElement('div.form-flash')";
+				$update_flash = "update: $(this).getForm().find('div.form-flash:first')";
 				if ($ajax_params !== null)
 				{
 					if (strpos($ajax_params, 'update') === false)
@@ -49,7 +49,7 @@ class Admin_Html
 					$ajax_params = $update_flash;
 
 				$ajax_params = $ajax_params !== null ? '{'.$ajax_params.'}' : '{}';
-				$ajax_request = $form_element.".sendPhpr('".$ajax_handler."', ".$ajax_params.");";
+				$ajax_request = $form_element.".phpr().post('".$ajax_handler."', ".$ajax_params.").send();";
 
 				if (array_key_exists('onclick', $a_attrs))
 					$a_attrs['onclick'] = $ajax_request.$a_attrs['onclick'];
@@ -57,9 +57,9 @@ class Admin_Html
 					$a_attrs['onclick'] = $ajax_request.' return false;';
 			}
 
-			$attr_list = Phpr_Html::format_attributes($a_attrs, array('href'=>'#'));
+			$attr_list = Phpr_Html::format_attributes($a_attrs, array('href' => 'javascript:;'));
 		} else {
-			$attr_list = Phpr_Html::format_attributes($a_attrs, array('href'=>$attributes));
+			$attr_list = Phpr_Html::format_attributes($a_attrs, array('href' => $attributes));
 		}
 
 		return '<a '.$attr_list.'>'.$caption.'</a>';
@@ -86,33 +86,36 @@ class Admin_Html
 				$a_attrs['class'] = 'cp-button';
 
 			$ajax_request = null;
-			if ($ajax_handler !== null)
-			{
+			
+			if ($ajax_handler !== null) {
+			
 				if ($form_element == null)
-					$form_element = '$(this).getForm()';
+					$form_element = '$(this)';
 				else
-					$form_element = "$('".$form_element."')";
+					$form_element = "$('#".$form_element."')";
 
-				$update_flash = "update: $(this).getForm().getElement('div.form-flash')";
-				if ($ajax_params !== null)
-				{
+				$update_flash = "update: $(this).getForm().find('div.form-flash:first')";
+				if ($ajax_params !== null) {
+
 					if (strpos($ajax_params, 'update') === false)
 						$ajax_params .= ', '.$update_flash;
-				} else
-					$ajax_params = $update_flash;
 
-				$ajax_params = $ajax_params !== null ? '{'.$ajax_params.'}' : '{}';
-				$ajax_request = $form_element.".sendPhpr('".$ajax_handler."', ".$ajax_params.");";
+				} else {
+					$ajax_params = $update_flash;
+				}
+
+				$ajax_params = ($ajax_params !== null) ? '{ '.$ajax_params.' }' : '{}';
+				$ajax_request = $form_element.".phpr().post('".$ajax_handler."', ".$ajax_params.").send();";
 
 				if (array_key_exists('onclick', $a_attrs))
-					$a_attrs['onclick'] = $ajax_request.$a_attrs['onclick'];
+					$a_attrs['onclick'] = $ajax_request . $a_attrs['onclick'];
 				else
-					$a_attrs['onclick'] = $ajax_request.' return false;';
+					$a_attrs['onclick'] = $ajax_request . ' return false;';
 			}
 
-			$attr_list = Phpr_Html::format_attributes($a_attrs, array('href'=>'#'));
+			$attr_list = Phpr_Html::format_attributes($a_attrs, array('href' => 'javascript:;'));
 		} else
-			$attr_list = Phpr_Html::format_attributes($a_attrs, array('href'=>$attributes, 'class'=>'cp-button'));
+			$attr_list = Phpr_Html::format_attributes($a_attrs, array('href' => $attributes, 'class' => 'cp-button'));
 
 		return '<a '.$attr_list.'><i class="icon-'.$button_icon.'"></i> '.$caption.'</a>';
 	}
@@ -141,7 +144,7 @@ class Admin_Html
 
 	public static function flash_message($message, $type = 'success')
 	{
-		return '<div class="'.$type.'">'.h($message).'</div>';
+		return '<div class="alert alert-'.$type.'">'.h($message).'</div>';
 	}
 
 	public static function click_link($url)
