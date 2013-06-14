@@ -1,0 +1,94 @@
+/*
+ * Popup forms
+ */
+
+.overlay { 
+	background-color: rgba(0,0,0,0.5);
+	position: fixed;
+	height: 1px;
+	width: 1px;
+	padding: 0;
+	margin: 0;
+	top: 0;
+	left: 0;    
+}
+
+.popupLoading {
+	@include border-radius(5px);
+	width: 120px;
+	height: 120px;
+	background: #e0e0e0 url('../../images/loading_100.gif') no-repeat center center;
+	.opacity(80);
+}
+
+.popupForm { 
+	min-width: 200px;
+	background-color: #fff;
+	.box-shadow(#777 0 0 100px);
+	form { position: relative; padding:0; margin:0; }
+	
+	h2 {
+		margin: 0;
+		color: #FFF;
+		font-weight: normal;
+		padding: 9px 15px 8px 1em;
+		background: @primaryColor;
+		font-size: 18px;
+	}
+
+	div.popup_content {
+		position: relative;
+		background: white;
+		border: 3px solid #fff;
+		margin-bottom: 0;        
+		.button { margin-top:1em; }
+	}
+
+	.content { 
+		padding: 1em; 		
+		border: 1px solid #e5e5e5;
+
+		hr { margin: 10px 0; }
+
+		&.offset-bottom {
+			padding-bottom: 0;
+		}
+		
+		form, .form fieldset.form-elements {
+		 	padding-bottom: 0;
+		 	margin-bottom: 0;
+		}
+		.form fieldset.form-elements {
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+	}
+
+	.footer {
+		padding: (@baseLineHeight - 1) 20px @baseLineHeight;
+		background-color: @formActionsBackground;
+		.clearfix(); // Adding clearfix to allow for .pull-right button containers
+	}
+
+	a.popup-close {
+		text-decoration: none;
+		position: absolute;
+		display: block;
+		width: 25px;
+		height: 25px;
+		line-height: 25px;
+		outline: none;
+		font-size: 24px;
+		overflow: visible;
+		text-align: center;        
+		right: -10px;
+		top: -10px;
+		font-family: FontAwesome;
+		background: #FFF;
+		.border-radius(500px);   
+		color: @errorText;
+		&:hover { color: darken(@errorText, 10%); }
+		&:before { content: "\f057"; }
+	}
+}

@@ -1,0 +1,40 @@
+<?
+	$menu = Admin_Menu::create();
+	$menu_items = $menu->get_items();
+	$active_item = $menu->get_active_item($this->app_menu);
+	$has_children = $active_item && $active_item->children;
+?>
+<? if ($menu_items): ?>
+	<div id="site-nav" class="<?=$has_children?'with-subnav':''?>">
+		<div id="site-nav-scroll-area">
+			
+			<ul class="nav nav-pills nav-stacked">
+				<? foreach ($menu_items as $item): ?>
+					<? 
+						$is_active = $this->app_menu == $item->id; 
+					?>
+					<li class="<?=$is_active?'active':''?>">
+						<a href="<?=url($item->link)?>" class="menu-item-<?=$item->id?>">
+							<i class="icon-<?=$item->icon?>"></i>
+							<span><?=$item->name?></span>
+							<? if ($item->label): ?><span class="label label label-important"><?=$item->label?></span><? endif ?>
+						</a>
+					</li>
+				<? endforeach ?>
+			</ul>
+		
+		</div>
+	</div>
+<? endif ?>
+
+<? if ($has_children): ?>
+	<!-- Sub Navigation -->
+	<div id="site-subnav">
+		<h4 class="title"><i class="icon-<?=$active_item->icon?>"></i> <?=$active_item->name?></h4>
+		<div id="site-subnav-scroll-area">
+			<ul class="nav nav-tabs nav-stacked">
+				<?=$active_item->print_children($this->app_page, false, array('wrap_tag'=>false))?>
+			</ul>
+		</div>
+	</div>
+<? endif ?>

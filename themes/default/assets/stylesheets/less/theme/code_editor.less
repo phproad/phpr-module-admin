@@ -1,0 +1,126 @@
+fieldset.form-elements {
+	.control-group.code_editor {
+
+		.code_editor_wrapper {
+			border: 1px solid #d2d4d4 !important;
+			&.focused { border-color: #b5b7b7 !important; }
+
+			.code_wrapper {
+				border: 1px solid @borderColor;
+				position: relative;
+				width: 100% ;
+				
+				&.tiny { height: 50px; }
+				&.small { height: 5em; }
+				&.large { height: 15em; }
+				&.huge { height: 20em; }
+				&.giant { height: 30em; }
+
+				.form-ace-editor {
+					position: absolute;
+					margin: 0;
+					left: 0;
+					top: 0;
+					bottom: 0;
+					right: 0;
+					
+					.ace_gutter {
+						background: #F4F4F4!important;
+						color: #666666!important;
+						border-right: 1px solid #e6e6e6;
+					}
+				}					
+
+				pre {
+					.ace_scroller { .box-shadow(inset 0 1px 1px #e0e0e0); }
+					&.ace_focus { border-color: red !important; }
+				}
+
+				.code_editor_toolbar {
+				    padding-bottom: 3px;
+				    padding-top: 4px;
+					position: absolute; z-index: 101; right: 0; top: 0;
+					padding: 3px;
+					background-color: #f0f0f0;
+					.opacity(0);
+					.border-top-left-radius(1px);
+					.border-bottom-left-radius(3px);
+					.clearfix; 
+					ul { margin: 0; }
+				    li {
+				    	margin: 0;
+				    	padding: 0;
+				    	list-style-type: none;
+				        float: left;
+				        width: 20px;
+				        height: 20px;
+				        background-repeat: no-repeat;
+				        background-image: url('../../images/codemirror_buttons.png');
+				        margin-right: 2px;
+				    	.border-radius(3px);
+
+				        a {
+				            display: block;
+				            width: 20px;
+				            height: 20px;
+				            outline: none;
+				        }
+				    }
+
+				    li.undo {
+				        background-position: -74px 0;
+				    }
+
+				    li.redo {
+				        background-position: -52px 0;
+				    }
+
+				    li.search {
+				        background-position: -28px 0;
+				    }
+
+				    li.fullscreen {
+				        background-position: -4px 0;
+				    }
+
+				    li.textwrap {
+				        background-position: -107px 0;
+				    }					
+				}
+			}
+		}
+
+		.fullscreen .code_editor_wrapper {
+			border: none !important; .border-radius(0);
+			.code_wrapper pre {
+				.ace_scroller { .box-shadow(0 0 0 #FFF); }
+				.ace_gutter { .border-radius(0); }
+			}
+		}
+
+
+		.code_editor_toolbar li:hover, .fullscreen .code_editor_toolbar li.fullscreen, .notextwrap .code_editor_toolbar li.textwrap {
+		    background-color: #b2bbd0;
+		}
+
+		.code_editor_footer {
+		    height: 20px;
+		    background: #eee;
+		    position: relative;
+		    border-top: 1px solid #E6E6E6;
+
+		    .resize_handle {
+		        background: transparent url('../../images/codemirror_buttons.png') no-repeat -94px -4px;
+		        position: absolute;
+		        width: 10px;
+		        height: 11px;
+		        right: 0;
+		        bottom: 0;
+		        cursor: pointer;
+		    }
+		}
+
+
+
+	}
+}

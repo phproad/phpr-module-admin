@@ -1,0 +1,24 @@
+.page-admin-finance {
+
+	.invoice-table { 
+		margin: @baseLineHeight 0; 
+		td.empty { border:none; }
+		th.numeric, td.numeric { text-align: right; }
+		thead {
+			tr th { border-bottom: 3px solid #ddd; }
+			th.quantity { width: 7%; }
+			th.description { width: 50%; }
+		}
+		tfoot {
+			td { border: none; }
+			tr.total {
+				td { border-top: 3px solid #ddd; }
+				td.empty { border: none; }
+				font-weight: bold;
+			}
+			td { text-align: right; }
+		}
+	}
+
+	.invoice-due-date { margin-bottom: @baseLineHeight * 2; }
+}

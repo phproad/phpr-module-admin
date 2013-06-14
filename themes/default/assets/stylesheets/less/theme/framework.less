@@ -1,0 +1,299 @@
+// Framework overrides
+
+// Typography
+//-----------------------------------------------
+
+.page-header {
+	border-bottom: 1px solid @borderColor;
+}
+
+// Misc
+//-----------------------------------------------
+
+.badge {
+	.border-radius(6px);
+}
+
+.help-block,
+.help-inline {
+	color: lighten(@textColor, 30%);
+	font-size: @fontSizeSmall;
+}
+
+.alert-block {
+	.alert-heading { margin-bottom:.5em; }
+}
+
+.breadcrumb {
+	padding: 5px 10px;
+	background-color: @grayLighter;
+	> li { 		
+		font-size: 12px;
+		i { font-size: 14px; }
+		> .divider { font-size: 11px; color: @textColor; padding: 0; position: relative; top:-1px; }
+		&.active {
+			.divider { display: none; }
+		}
+	}
+}
+
+// Navs
+//-----------------------------------------------
+
+.tab-content { 
+	overflow: inherit; 
+}
+
+.nav-tabs {
+	padding-left: @contentPadding / 2;
+}
+
+.tabs-left > .nav-tabs,
+.tabs-right > .nav-tabs {
+	padding-left: inherit;
+}
+
+.tabs-left > .nav-tabs > li > a,
+.tabs-right > .nav-tabs > li > a,
+.nav-tabs > li > a {
+	.border-radius(0);
+}
+
+.nav-tabs > li > a {
+	outline: none;
+	.border-radius(0);
+	background-color: @grayLighter;
+	color: lighten(@textColor, 25%);
+	margin-right: 3px;
+	border-bottom-color: #ddd;
+	padding: 10px 14px;
+}
+
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover,
+.nav-tabs > .active > a:focus {
+	border-top: 3px solid lighten(@primaryColor, 10%);
+	padding-top: 8px;
+}
+
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus {
+	background-color: #ddd;
+	color: @textColor;
+}
+
+.tabs-left > .nav-tabs .active > a,
+.tabs-left > .nav-tabs .active > a:hover,
+.tabs-left > .nav-tabs .active > a:focus,
+.tabs-right > .nav-tabs .active > a,
+.tabs-right > .nav-tabs .active > a:hover,
+.tabs-right > .nav-tabs .active > a:focus {
+	border-top-color: lighten(@primaryColor, 10%);
+}
+
+// Forms
+//-----------------------------------------------
+
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input,
+.uneditable-textarea {
+	color: lighten(@textColor, 35%);
+	background-color: @inputBackground;
+	.box-shadow(inset 0 1px 1px rgba(0,0,0,.1));
+	// Focus state
+	&:focus {
+		border-color: @inputBorderActive;
+		outline: none;
+		.box-shadow(none);
+		color: lighten(@textColor, 25%);
+		background-color: lighten(@inputBackground, 1.5%);
+		.box-shadow(inset 0 -3px 0 rgba(0,0,0,.05));
+	}
+}
+
+// Buttons
+//-----------------------------------------------
+
+.btn {
+	.box-shadow(none);
+	border: none;
+	padding: 7px 14px;
+	background-image: none;
+
+	&.btn-icon {
+		padding-left: 40px;
+		position: relative;
+		i { position:absolute; line-height:30px; vertical-align: middle; left:0; top:0; bottom:0; font-size:15px; background: rgba(0,0,0,.2); width:30px; }
+	}
+}
+
+.btn-mini {
+	padding: @paddingMini;
+
+	&.btn-icon {
+		padding-left: 23px;
+		i { font-size: @fontSizeMini; line-height:18px; width:18px; }
+	}
+}
+
+.btn-small {
+	padding: @paddingSmall;
+
+	&.btn-icon {
+		padding-left: 26px;
+		i { font-size: @fontSizeSmall; line-height:20px; width:20px; }
+	}
+}
+
+.btn-large {
+	padding: @paddingLarge;
+	&.btn-icon {
+		padding-left: 55px;
+		i { font-size: @fontSizeLarge; line-height:40px; width:40px; }
+	}	
+}
+
+.btn .caret {
+	margin-top: 6px;
+	margin-left: 0;
+}
+
+.btn-mini .caret,
+.btn-small .caret {
+	margin-top: 6px;
+}
+
+.btn-group + .btn-group {
+	margin-left: 0;
+}
+
+.dropdown-menu {
+	//padding: 0;
+	.border-radius(0);
+	.box-shadow(none);
+	> li > a { 
+		padding: 5px 15px;
+	}
+}
+
+
+// Navbar
+//-----------------------------------------------
+
+.navbar-inner {
+	.box-shadow(none);
+	background-image: none;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.navbar-form {
+	input,
+	select,
+	.radio,
+	.checkbox {
+		.navbarVerticalAlign(25px);
+		background: #FFF;
+		border: 1px solid @inputBorder;
+		&:focus { border-color: darken(@inputBorder,10%); background: #FFF; }
+	}
+}
+
+.navbar .divider-vertical {
+	border-left: 1px solid darken(@navbarBackground, 5%);
+	border-right: 1px solid lighten(@navbarBackgroundHighlight, 5%);
+	margin: 0 5px;
+}
+
+.navbar .nav > li > a {
+	margin: 5px 0;
+	padding: (((@navbarHeight - @baseLineHeight) / 2) - 5) 10px;
+	text-shadow: none;
+	&:hover { background-color: @grayLighter; }
+}
+
+.navbar .nav > li > a:focus,
+.navbar .nav > li > a:hover {
+	#gradient > .vertical(@navbarLinkBackgroundHover, darken(@navbarLinkBackgroundHover, 5%));
+}
+
+
+// Pagination
+//-----------------------------------------------
+
+.pager li > a, .pager li > span { .border-radius(0); }
+.pagination ul {
+	.box-shadow(none);
+	.border-radius(0);
+}
+
+.pagination ul > li,
+.pagination-large ul > li {
+	&:first-child > a,
+	&:first-child > span,
+	&:last-child > span,
+	&:last-child > a {
+		.border-radius(0); 
+	}
+}
+
+.pagination ul {
+	font-size: 0;
+	>li {
+		margin: 0 3px; display: inline-block;
+		>a, 
+		>span {
+			border: none;
+			padding: 6px 12px;
+			font-size: @fontSizeSmall;
+			color: #fff;	
+		}
+		>a:hover {
+			color: #fff;
+		} 
+	}
+	>.disabled {
+		>a,
+		>span,
+		>a:hover {
+			color: @textColor;
+			.opacity(65);
+			background: @btnBackground;
+		}
+	}
+	>.active {
+		>a, 
+		>a:hover, 
+		>span {
+			background: lighten(@primaryColor, 15%);
+			color: #fff;
+			.opacity(100);
+		}
+	}
+}
+
+// Accordion
+//-----------------------------------------------
+
+.accordion-heading .accordion-toggle {
+	color: #fff;
+	text-decoration: none;
+	background: @primaryColor;
+	&:hover { 
+		background: darken(@primaryColor, 10%);
+	}
+}

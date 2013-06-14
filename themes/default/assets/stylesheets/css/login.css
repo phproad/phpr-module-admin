@@ -1,0 +1,106 @@
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+.hide-text {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.input-block-level {
+  display: block;
+  width: 100%;
+  min-height: 25px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body.page-admin-login {
+  background: #b8c9d6;
+}
+body.page-admin-login form {
+  margin: 0;
+  padding: 0;
+}
+body.page-admin-login .login-container {
+  margin: 7em auto 2em auto;
+  width: 310px;
+  position: relative;
+}
+body.page-admin-login .login-container .alert {
+  position: relative;
+  top: -5px;
+}
+body.page-admin-login .login-container .photo,
+body.page-admin-login .login-container .logo {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  margin-left: -45px;
+  width: 90px;
+  height: 90px;
+}
+body.page-admin-login .login-container .photo img,
+body.page-admin-login .login-container .logo img {
+  max-width: 90px;
+  max-height: 90px;
+}
+body.page-admin-login .login-container .photo img {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #6f6f6f;
+}
+body.page-admin-login .login-container .logo img {
+  margin-top: 27px;
+}
+body.page-admin-login .login-container .login-panel {
+  padding-top: 11em;
+  background: #f9fbfc;
+  border: 1px solid #bbc3ca;
+  box-shadow: #fff 0 0 200px;
+  text-align: center;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #f3f6f8;
+  background-image: -moz-linear-gradient(top, #f9fbfc, #e9eef2);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f9fbfc), to(#e9eef2));
+  background-image: -webkit-linear-gradient(top, #f9fbfc, #e9eef2);
+  background-image: -o-linear-gradient(top, #f9fbfc, #e9eef2);
+  background-image: linear-gradient(to bottom, #f9fbfc, #e9eef2);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff9fbfc', endColorstr='#ffe9eef2', GradientType=0);
+}
+body.page-admin-login .login-container fieldset.form-elements {
+  margin: 0 3em;
+}
+body.page-admin-login .login-container fieldset.form-elements .control-group {
+  margin-bottom: .5em;
+}
+body.page-admin-login .login-container fieldset.form-elements .control-label {
+  display: none;
+}
+body.page-admin-login .login-container .form-actions {
+  margin: 0;
+  text-align: right;
+}
+body.page-admin-login .login-container .form-actions .secondary-link {
+  font-size: 11px;
+  float: left;
+  line-height: 2.5;
+}
+body.page-admin-login .login-container .form-actions .login-button,
+body.page-admin-login .login-container .form-actions .restore-button {
+  float: right;
+}

@@ -1,0 +1,13 @@
+<?
+	$tray = Admin_Tray::create();
+	$tray_items = $tray->get_items();
+?>
+<? foreach ($tray_items as $item): ?>
+	<? 
+		if (!$item->use_partial) 
+			continue; 
+	?>
+	<section id="admin-tray-<?=$item->id?>" style="display:none">
+		<?= $this->display_partial($item->partial_path) ?>
+	</section>
+<? endforeach ?>

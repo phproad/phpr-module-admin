@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html id="home" lang="en">
+<head>
+	<meta charset=utf-8 />
+	<meta name="viewport" content="width=990" />
+	<title><?=strlen($this->app_page_title) ? h($this->app_page_title).' | ' : null ?> <?=c('site_name')?></title>
+	<? $this->display_layout('head') ?>
+	<?=Phpr_View::block("head") ?>
+</head>
+<body class="<?=$this->view_data_element('body_class') ?>">
+
+	<!-- Header -->
+	<div class="container-fluid" id="wrapper">
+		<div id="site-header" class="dark">
+			<div class="header-left">
+				<div class="toggle-menu">
+					<a href="javascript:;" class="tray-link" onclick="Admin_Page.asToggleMenu()"><i class="icon-reorder"></i></a>
+				</div>
+				<a class="logo" href="<?= root_url('/') ?>" target="_blank">
+					<?
+						$admin_logo = Admin_Config::get_logo();
+						if (!$admin_logo)
+							$admin_logo = 'modules/admin/assets/images/logo.png';
+					?>
+					<img src="<?=$admin_logo?>" alt="" />
+				</a>
+				<h5 class="site-name">
+					<a href="<?= root_url('/') ?>" target="_blank"><?=c('site_name')?></a>
+				</h5>
+			</div>
+			<div class="header-right">
+				<div class="tray-icons">
+					<? $this->display_layout('tray') ?>
+				</div>
+				<div class="logo">
+					<img src="modules/admin/themes/<?= Admin_Config::get_theme_id() ?>/assets/images/avatar-blank.png" alt="" />
+				</div>
+				<h5 class="active-user">
+					<?=$this->active_user->short_name?>
+				</h5>
+			</div>
+		</div>
+		
+		<div id="site-tray">			
+			<? $this->display_layout('tray_items') ?>
+		</div>
+
+		<? $this->display_layout('menu') ?>
+
+		<!-- Content -->
+		<div id="site-content">
+			<div class="content-canvas">
+				<div id="content">
+
+					<? if (Admin_Breadcrumb::exists()) { ?>
+					<div id="breadcrumb">
+						<?=Admin_Breadcrumb::display(array(
+							'list_prefix' => '<li><i class="icon-home"></i></li>'.PHP_EOL,
+							'item_suffix' => ' <i class="icon-angle-right divider"></i>'
+						))?>
+					</div>
+					<? } ?>
+
+					<? if ($this->app_page_title): ?>
+						<div class="page-header">
+							<? if ($this->app_module_name && false): // disabled ?>
+								<h1><?=h($this->app_page_title) ?> <small><?=h($this->app_module_name)?></small></h1>
+							<? else: ?>
+								<h1><?=h($this->app_page_title) ?></h1>
+							<? endif ?>
+						</div>                
+					<? endif ?>
+
+					<?=Phpr_View::block("view") ?>
+
+				</div>
+			</div>
+		</div>
+
+		<!-- Footer -->
+		<div id="site-footer">
+		</div>
+	</div>
+
+	</body>
+</html>

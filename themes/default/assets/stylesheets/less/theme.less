@@ -1,0 +1,43 @@
+
+// Core variables and mixins
+@import "../../extras/bootstrap/less/variables"; // Modify this for custom colors, font-sizes, etc
+@import "../../extras/bootstrap/less/mixins";
+
+// App settings
+@import "variables";
+
+// Controls
+@import "theme/layout";
+@import "theme/tray";
+@import "theme/ui";
+@import "theme/framework";
+@import "theme/popup";
+@import "theme/imagelist";
+@import "theme/forms";
+@import "theme/lists";
+@import "theme/toolbars";
+@import "theme/code_editor";
+
+// Pages
+@import "pages/dash";
+@import "pages/support";
+@import "pages/settings";
+@import "pages/finance";
+@import "pages/docs";
+
+/* Flot */
+#flotTip { 
+	white-space: nowrap; 
+	border: 1px solid @primaryColor; 
+	padding: 3px 8px; 
+	background: @primaryColor;	
+	position: absolute;
+	z-index: 100; 
+	color: #fff;
+}
+
+/* Page flash prevention */
+#fixed-toolbar, #site-content {
+	visibility: hidden;
+	&.is-loaded { visibility: visible; }
+}

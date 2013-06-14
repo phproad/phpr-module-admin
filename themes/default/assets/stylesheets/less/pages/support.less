@@ -1,0 +1,57 @@
+.page-admin-support {
+
+	.ticket-conversation {
+
+		.message-container {
+			margin-bottom: @baseLineHeight * 2;
+			.clearfix;
+			.photo { float:left; 
+				img { width:90px; height:90px; .border-radius(5px); }
+			}
+
+			.message { 
+				min-height: 90px;
+				margin-left: 90px + @contentPadding;
+				position: relative;
+				border-left: 3px solid @primaryColor;
+				// Caret
+				&:after {
+					content: '';
+					display: inline-block;
+					border-bottom: 10px solid transparent;
+					border-top: 10px solid transparent;
+					border-right: 10px solid @primaryColor;
+					position: absolute;
+					top: 10px;
+					left: -12px;
+				}
+				
+				.header { 
+					color:lighten(@textColor, 25%); 
+					padding: 2px @contentPadding / 2;
+					.datetime { font-size:12px; font-style: italic; }
+				}
+				.content {
+					padding: @contentPadding / 2;
+					padding-bottom: 0;
+					font-size: 12px;
+					.clearfix;
+				}
+			}
+
+			&.user .message { border-left-color: @green; 
+				&:after { border-right-color: @green; }
+			}
+			
+			&.staff .message { border-left-color: @primaryColor; 
+				&:after { border-right-color: @primaryColor; }
+			}
+
+			&.private .message { border-left-color: @grayLight; 
+				&:after { border-right-color: @grayLight; }
+			}
+
+		}
+	}
+
+}

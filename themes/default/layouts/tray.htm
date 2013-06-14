@@ -1,0 +1,13 @@
+<?
+	$tray = Admin_Tray::create();
+	$tray_items = $tray->get_items();
+?>
+<ul>
+	<? foreach ($tray_items as $item): ?>
+		<li class="admin-tray-<?= $item->id ?>">
+			<a href="<?= $item->link ?>" class="tray-link" title="<?= h($item->name) ?>" data-tray-id="<?= $item->id ?>">
+				<i class="icon-<?= $item->icon ?>"></i>
+			</a>
+		</li>
+	<? endforeach ?>
+</ul>

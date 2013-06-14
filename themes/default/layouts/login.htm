@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html id="home" lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=990" />
+	<title><?=strlen($this->app_page_title) ? h($this->app_page_title).' | ' : null ?> <?=c('site_name')?></title>
+	<? $this->display_layout('head') ?>
+
+	<!-- Core -->
+	<script src="modules/admin/assets/scripts/js/phproad.js"></script>
+	<script src="modules/admin/assets/scripts/js/admin.js"></script>
+	<script src="modules/admin/assets/scripts/js/login.js"></script>
+	<!-- <link rel="stylesheet" href="modules/admin/assets/stylesheets/css/login.css" /> -->
+
+	<!-- Theme -->
+	<link href="modules/admin/themes/<?= Admin_Config::get_theme_id() ?>/assets/stylesheets/css/bootstrap.css" rel="stylesheet" />
+	<link href="modules/admin/themes/<?= Admin_Config::get_theme_id() ?>/assets/stylesheets/css/theme.css" rel="stylesheet" />
+	<link href="modules/admin/themes/<?= Admin_Config::get_theme_id() ?>/assets/stylesheets/css/login.css" rel="stylesheet" />
+	<link href="modules/admin/themes/<?= Admin_Config::get_theme_id() ?>/assets/stylesheets/css/vendor.css" rel="stylesheet" />
+
+	<link rel="stylesheet" href="<?=Phpr::$config->get('PHPR_URL', 'phpr')?>/modules/db/behaviors/db_form_behavior/assets/css/form.css" type="text/css" />
+	<?=Phpr_View::block("head") ?>
+</head>
+<body class="page-admin-login">
+
+	<div class="container-fluid">
+		<div class="login-container">
+			<div class="login-panel" id="content">
+				<div id="content-inner">
+
+					<!-- Photo -->
+					<div class="photo" id="login_photo" style="display: none">
+						<img src="modules/admin/themes/default/assets/images/avatar.png" alt="" />
+					</div>
+
+					<!-- Logo -->
+					<div class="logo" id="login_logo">
+						<img src="modules/admin/themes/default/assets/images/logo-login.png" alt="" />
+					</div>
+
+					<?=Phpr_View::block("view") ?>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		// Dress up form
+		jQuery(document).ready(function($) { 
+			$('fieldset.form-elements .control-group').each(function(){
+				var placeholderText = $(this).find('.control-label').text();
+				$(this).find('.controls > input').attr('placeholder', placeholderText);
+			});
+
+			$('.login-button button').append('<i class="icon-key"></i> ');
+			$('.restore-button button').append('<i class="icon-star"></i> ');
+		});
+	</script>
+	
+</body>
+</html>

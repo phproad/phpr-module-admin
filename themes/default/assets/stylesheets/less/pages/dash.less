@@ -1,0 +1,66 @@
+body.page-admin-index {
+
+	.dash-stats {
+		h4 {
+			margin-bottom: 20px;
+		}
+		padding-bottom: 15px;
+	}
+
+	.dash-widget-column { 		
+		.ui-sortable-placeholder { border: 1px dotted @gray; visibility: visible !important; height: 100px !important; }
+		.ui-sortable-placeholder * { visibility: hidden; }		
+	}
+
+	.dash-widget {
+		.box-shadow(0 0 4px rgba(0,0,0,.25));
+		margin-bottom: @baseLineHeight;
+		&.ui-sortable-helper { .box-shadow(0 0 4px rgba(0,0,0,.5)); }
+		.dash-widget-header {
+			padding: 5px 10px;			
+			border-top: 2px solid @primaryColor;
+			position: relative;
+
+			&:hover { background-color: @accentColor; cursor: move; 
+				.remove a { .opacity(70); }
+			}
+			.remove { position: absolute; top:5px; right:10px; font-size:20px;
+				a { .opacity(10); color: @gray; text-decoration: none; 
+					&:hover { .opacity(100); }
+				}
+			}
+		}
+		.dash-widget-body {
+			padding: 5px 10px @baseLineHeight 10px;
+			font-size: @fontSizeSmall;
+			background: #fff;
+			table { margin-bottom:0; }
+			td { line-height: 20px; }
+			td.action { width:60px; }
+			td.image { 
+				background: @primaryColor; 
+				text-align: center;
+				color: #fff;
+				width: 25px;
+			}
+			td.duration {
+				text-align: right;
+				color: @grayLight;
+			}
+			th.number, td.number {
+				text-align: right;
+			}
+			.label { margin-right: 5px; }
+		}
+		.dash-widget-footer {
+			background: #fff;
+			text-align: center;
+			border-top: 1px solid #ddd;
+			//color: #fff;
+			a { padding: 5px 5px; display: block; text-decoration: none; font-size:@fontSizeSmall;
+				&:hover { background-color: @grayLighter; color: #000; }
+			}
+		}
+	}
+
+}

@@ -1,0 +1,131 @@
+.imagelist {
+	margin: 0;
+	padding: 0;
+	margin-bottom: @baseLineHeight;
+	list-style: none;
+	
+	li {
+		width: 350px;
+		max-width: 99.5%;
+		.box-sizing(border-box);
+		display: inline-block;
+		vertical-align: top;
+		padding: 10px 5px 10px 10px;
+		cursor: pointer;
+
+		.list-image {
+			
+			float: left;
+			position: relative;
+			
+			// Regular icon
+			img { 
+				border: none;
+				float: left;
+			}
+			
+			// Font icon
+			i { 
+				font-size:32px; 
+				background: @shadeColor; 
+				height:56px; 
+				width:56px; 
+				line-height:56px;
+				display: block; 
+				.border-radius(500px);
+			}
+		}
+		
+		.list-content {
+			margin-left: 71px;
+		}
+
+		.list-title {
+			margin: 9px 0 10px 70px;
+			padding-bottom: 0;
+			a { color: @linkColor; text-decoration: none; }
+		}
+
+		p {
+			font-size: 13px;
+			color: #666;
+		}
+
+		&:hover {
+			background-color: #eee;
+			//.vertical-gradient(#f6f6f6, #e6e6e6);
+			.list-image {
+				i { background: #FFF; color: @primaryColor; }
+			}
+			.list-title a { color: @textColor; }
+
+		}
+	}
+}
+
+ul.imagelist-sortable {
+	border: 2px solid @borderColor;
+	background: #fff;
+	margin: 0;
+	padding: 0;
+	margin-bottom: @baseLineHeight;
+	list-style: none;
+
+	h4 {
+		font-size: 13px;
+		color: #444;
+		padding: 2px 0 3px 0;
+	}
+
+	p {
+		font-size: @fontSizeSmall;
+		color: #666;
+	}
+
+	li {
+		padding: 6px;
+		border-bottom: 1px dotted #ccc;
+		position: relative;
+		.clearfix;
+
+		a.image-link {
+			float: left;
+			width: 112px;
+			margin-left: 14px;
+		}
+
+		a img {
+			border: 1px solid #ddd;
+			float: left;
+			.border-radius(4px);
+		}
+
+		.image-info {
+			margin-left: 130px;
+		}
+
+		a.row-drag-handle {
+			position: absolute;
+			left: 2px;
+			top: 8px;
+			text-decoration: none;
+		}
+
+		&.last, &:last-child { border-bottom: none; }
+		&:nth-child(2n) { background-color: #f5f5f5; }
+		&:hover { background-color: #f0f0f0; }
+	}
+}
+
+div.scrollable-image-list {
+	margin-bottom: @baseLineHeight;
+	height: 300px;
+	overflow: auto;
+	border: 2px solid @borderColor;
+	background: #fff;
+
+	ul.imagelist-sortable {
+		border: none;
+		margin-bottom: 0;
+	}
+}
