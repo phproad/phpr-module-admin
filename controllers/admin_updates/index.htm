@@ -1,0 +1,40 @@
+<? Phpr_View::begin_block("head") ?>
+	<link type="text/css" rel="stylesheet" href="modules/admin/assets/stylesheets/css/updates.css" />
+<? Phpr_View::end_block() ?>
+<? Phpr_View::begin_block("view") ?>
+	<?=flash()?>
+	<?=Phpr_Form::open_tag() ?>
+		<div class="navbar">
+			<div class="navbar-inner">
+				<ul class="nav">
+					<li><?=cp_button('Check for updates', 'magic', array('href'=>'#', 'onclick'=>"new PopupForm('index_on_update_form', {closeByEsc: false}); return false;")) ?></li>
+				</ul>
+			</div>
+		</div>
+		<div class="clear"></div>
+
+		<table class="table list-table">
+			<thead class="">
+				<tr>
+					<th class="varchar current">Module</th>
+					<th class="varchar">Description</th>
+					<th class="varchar">Version</th>
+					<th class="varchar last">Developer</th>
+				</tr>
+			</thead>
+			<tbody id="update_list">
+				<? foreach ($modules as $module):
+					$module_info = $module->get_module_info();
+				?>
+					<tr class="<?=Phpr_Html::zebra('modules') ?>">
+						<td class="varchar current"><?=h($module_info->name) ?></td>
+						<td class="varchar"><?=h($module_info->description) ?></td>
+						<td class="varchar"><?=h($module_info->get_version()) ?></td>
+						<td class="varchar last"><?=h($module_info->author) ?></td>
+					</tr>
+				<? endforeach ?>
+			</tbody>
+		</table>
+
+	</form>
+<? Phpr_View::end_block() ?>

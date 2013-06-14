@@ -1,0 +1,26 @@
+<? Admin_Breadcrumb::add('Settings', 'admin/settings')->add($this->app_page_title);?>
+<? Phpr_View::begin_block("view") ?>
+	
+	<?= flash() ?>
+	
+	<table class="table list-table">
+		<thead>
+			<tr>
+				<th class="current">File</th>
+				<th class=>Description</th>
+				<th class="last">Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			<? foreach ($data as $index => $page):
+				$url = url('admin/access_tools/edit/'.$index);
+			?>
+				<tr class="<?= Phpr_Html::zebra('even') ?>" onClick="window.location = '<?= $url ?>'">
+					<td class="current text link"><a href="<?= $url ?>"><?= $page['file_name'] ?></a></td>
+					<td class="text link"><a href="<?= $url ?>"><?= $page['description'] ?></a></td>
+					<td class="last text link"><a href="<?= $url ?>"><?= $page['status'] ?></a></td>
+				</tr>
+			<? endforeach ?>
+		</tbody>
+	</table>
+<? Phpr_View::end_block() ?>

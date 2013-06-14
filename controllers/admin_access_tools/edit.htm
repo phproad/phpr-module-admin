@@ -1,0 +1,64 @@
+<? Admin_Breadcrumb::add('Settings', 'admin/settings')->add('Access Tools','admin/access_tools')->add($this->app_page_title);?>
+<? Phpr_View::begin_block("head") ?>
+	<script type="text/javascript" src="modules/admin/assets/javascript/unload_manager.js"></script>
+	<script type="text/javascript" src="framework/vendor/codemirror/js/codemirror.js?<?= module_build('core') ?>"></script>
+	<script type="text/javascript" src="framework/modules/db/behaviors/db_form_behavior/assets/javascript/codemirror_wrapper.js?<?= module_build('core') ?>"></script>
+	<script type="text/javascript" src="modules/cms/assets/javascript/fileedit.js"></script>
+	<script type="text/javascript">
+		UnloadManager.unload_message = 'The file content has been changed. Unsaved data will be lost.';
+	</script>
+<? Phpr_View::end_block() ?>
+
+<? Phpr_View::begin_block("view") ?>
+	
+	<? if (!isset($fatal_error)): ?>
+	
+		<div class="scoreboard-report">
+			<ul>
+				<li>
+					<h3><?= $data[$filename]['file_name'] ?></h3>
+					<p><?= $data[$filename]['description'] ?></p>
+				</li>
+			</ul>
+		</div>
+	
+		<?= flash() ?>
+		
+		<?= Phpr_Form::open_tag() ?>
+			<div class="form">
+
+				<div class="form-flash"></div>
+		
+				<fieldset class="form-elements">
+					<div class="control-group field code_editor full">
+						<div class="controls code">
+							<div class="code_wrapper giant">
+								<textarea class="giant" id="file_content" name="file_content"><?= h($file_contents) ?></textarea>
+								<?
+									$config = '{"showInvisibles":false,"highlightActiveLine":true,"showGutter":true,"showPrintMargin":false,"useSoftTabs":false,"tabSize":4,"fontSize":12,"theme":"textmate","folding":"manual","wrapMode":null}';
+								?>
+								<script type="text/javascript">
+									jQuery(document).ready(function($) { 
+										init_code_editor('file_content', '<?=$ext?>', <?=$config ?>);
+									});
+								</script>   
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		
+			<div id="fixed-toolbar" class="top">
+				<div class="form-toolbar">
+					<?=admin_ajax_button('Save', 'edit_on_save', array('class'=>'btn-success'), "beforeSend: function(){phprTriggerSave();}, extraFields: {redirect: 0}, loadIndicator: {hideOnSuccess: true}, onSuccess: function(){UnloadManager.reset_changes()}") ?>
+					<?=admin_ajax_button('Save and Close', 'edit_on_save', array('class'=>'btn-primary'), "beforeSend: function(){phprTriggerSave();}, onBeforeScriptEval: function(){UnloadManager.reset_changes()}") ?>   
+					<?=admin_ajax_button('Close', 'edit_on_cancel', array('class'=>''), "onBeforeScriptEval: function(){UnloadManager.reset_changes()}") ?>
+				</div>
+			</div>
+		</form>
+				
+	<? else: ?>
+		<?= flash() ?>
+	<? endif ?>
+	
+<? Phpr_View::end_block() ?>

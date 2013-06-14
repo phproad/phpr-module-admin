@@ -1,0 +1,72 @@
+<? if (!isset($error)): ?>
+
+	<? if (!count($update_list)): ?>
+		<div class="content">
+			<div class="form-flash"></div>
+			<p>No new updates found.</p>
+		</div>
+		<div class="footer">
+			<?= admin_button('Close', array('onclick'=>'return cancelPopup()', 'class'=>'btn-success')) ?>
+			<div class="pull-right">
+				<?= admin_ajax_button('Force update', 'index_on_force_update', array('class'=>'btn-primary pull-right'), "confirm: 'Do you really want to force an update?', beforeSend: function(){allow_onload=false;}, onBeforeScriptEval: function(){allow_onload=true}") ?>
+			</div>
+		</div>
+	<? else: ?>
+		<div class="content">
+			<div class="update_list">
+				<div class="alert alert-success">
+					<i class="icon-check"></i> Found new updates! Click <strong>Update software</strong> to begin the update process.
+				</div>
+
+				<div class="form-flash"></div>
+
+				<div class="scrollable-list padding-10">
+					<?
+						$last_index = count($update_list)-1;
+						$index = 0;
+					?>
+					<? foreach ($update_list as $module_code => $update_data): ?>
+
+						<h5><?= h($update_data->name) ?></h5>
+						<div class="<?= $last_index == $index ? 'last' : null ?> update-table">
+							<table class="list-table">
+								<thead class="">
+									<tr>
+										<th class="active varchar" width="75">Version</th>
+										<th class="varchar last">Description</th>
+									</tr>
+								</thead>
+								<tbody id="update-list">
+									<? foreach ($update_data->updates as $version=>$description): ?>
+										<tr class="<?=Phpr_Html::zebra('update_'.$module_code) ?>">
+											<td class="varchar active"><?= h($version) ?></td>
+											<td class="varchar last"><?= preg_replace('/(http|ftp)+(s)?:(\/\/)((\w|\.)+)(\/)?(\S+)?/i', '<a href="\0" target="_blank">\4</a>', h($description)) ?></td>
+										</tr>
+									<? endforeach ?>
+								</tbody>
+							</table>
+						</div>
+
+					<?
+						$index++;
+					?>
+					<? endforeach ?>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<?= admin_ajax_button('Update software', 'index_on_apply_updates', array('class'=>'btn-success pull-right'), "confirm: 'Do you really want to perform this update?', beforeSend: function(){allow_onload=false;}, onBeforeScriptEval: function(){allow_onload=true}") ?>
+			<?= admin_button('Cancel', array('onclick'=>'return cancelPopup()')) ?>
+		</div>
+	<? endif ?>
+
+<? else: ?>
+
+	<div class="content">
+		<div class="alert alert-error"><?= $error ?></div>
+	</div>
+	<div class="footer">
+		<?= admin_button('Cancel', array('onclick'=>'return cancelPopup()')) ?>
+	</div>
+
+<? endif ?>

@@ -1,0 +1,45 @@
+<script>
+	var allow_onload = true;
+</script>
+<div id="check_updates_popup">
+	<h2>Update Software</h2>
+	<div class="form-600">
+		<?=Phpr_Form::open_tag(array('id'=>'load_updates_form')) ?>
+
+			<? if (!isset($fatal_error)): ?>
+				<div id="update_information_container">
+					<div class="content">
+						<p class="loading">Loading a list of available updates...</p>
+					</div>
+					<div class="footer">
+						<?=admin_button('Cancel', array('onclick'=>'return cancelPopup()')) ?>
+					</div>
+				</div>
+				
+				<script type="text/javascript">
+					jQuery('#check_updates_popup').on('popupLoaded', function(){
+						$('#load_updates_form').phpr().post('index_on_check_for_updates', {
+							loadIndicator: { show: false },
+							update: '#update_information_container',
+							afterUpdate: realignPopups
+						}).send();
+					});
+					jQuery('#check_updates_popup').on('onClosePopup', function(){
+						if (!allow_onload) {
+							alert('The update process is in progress. Please do not close this window until it is complete.');
+							throw new Exception("Update is in progress");
+						}
+					});
+				</script>
+			<? else: ?>
+				<div class="content">
+					<div class="form-flash"><?=flash()?></div>
+				</div>
+				<div class="footer">
+					<?=admin_button('Cancel', array('onclick'=>'return cancelPopup()')) ?>
+				</div>
+			<? endif ?>
+
+		</form>
+	</div>
+</div>
