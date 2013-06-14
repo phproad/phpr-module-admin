@@ -1,0 +1,71 @@
+<? Phpr_View::begin_block("head") ?>
+	<script type="text/javascript" src="modules/admin/assets/scripts/js/jquery.admin.linechart.js"></script>
+	<script type="text/javascript" src="modules/admin/assets/extras/flot/jquery.flot.js"></script>
+	<script type="text/javascript" src="modules/admin/assets/extras/flot/jquery.flot.pie.js"></script>
+	<script type="text/javascript" src="modules/admin/assets/extras/flot/jquery.flot.tooltip.js"></script>
+	<script type="text/javascript" src="modules/admin/assets/extras/flot/jquery.flot.selection.js"></script>
+	<script type="text/javascript" src="modules/admin/assets/extras/flot/jquery.flot.resize.js"></script>
+	<script type="text/javascript" src="modules/admin/assets/extras/flot/jquery.flot.time.js"></script>
+	<script type="text/javascript" src="modules/admin/assets/extras/flot/jquery.flot.orderBars.js"></script>
+<? Phpr_View::end_block() ?>
+<? Phpr_View::begin_block("view") ?>
+	<?=flash()?>
+	
+	<a href="javascript:;" id="chart-reset-zoom" 
+		class="btn btn-small btn-icon" 
+		style="display:none; position:absolute;z-index:999">
+		<i class="icon-zoom-out"></i>
+		Reset zoom
+	</a>
+	<div id="dash-chart" style="height:300px"></div>
+
+	<script>
+		jQuery(document).ready(function($) { 
+			$('#dash-chart').lineChart().lineChart('addData', 'Visitors', <?= json_encode($this->get_dash_chart()) ?>);
+		});
+	</script>
+
+	<?
+		$statistics = $this->get_cms_stats();
+	?>
+
+	<div class="arrow separator"></div>
+
+	<div class="dash-stats">
+		<h4>Statistics for past 7 days</h4>
+		<div class="scoreboard-report">
+			<ul>
+
+				<!-- Visitors -->
+				<li>
+					<? $shift = $statistics->visitors_current > $statistics->visitors_previous ? 'up' : ($statistics->visitors_current == $statistics->visitors_previous ? 'same' : 'down'); ?>
+					<p>Visitors</p>
+					<h3 class="<?=$shift?>"><?=$statistics->visitors_current?> <i class="icon-arrow-<?=$shift?>"></i></h3>
+					<small>previous: <?=$statistics->visitors_previous?></small>
+				</li>
+
+				<!-- Pageviews -->
+				<li>
+					<? $shift = $statistics->pageviews_current > $statistics->pageviews_previous ? 'up' : ($statistics->pageviews_current == $statistics->pageviews_previous ? 'same' : 'down'); ?>
+					<p>Pageviews</p>
+					<h3 class="<?=$shift?>"><?=$statistics->pageviews_current?> <i class="icon-arrow-<?=$shift?>"></i></h3>
+					<small>previous: <?=$statistics->pageviews_previous?></small>
+				</li>
+
+				<!-- Pageviews / Visitor -->
+				<?
+					$cur_ratio = $statistics->visitors_current > 0 ? $statistics->pageviews_current/$statistics->visitors_current : 0;
+					$prev_ratio = $statistics->visitors_previous > 0 ? $statistics->pageviews_previous/$statistics->visitors_previous : 0;
+				?>        
+				<li class="last">
+					<? $shift = $cur_ratio > $prev_ratio ? 'up' : ($cur_ratio == $prev_ratio ? 'same' : 'down'); ?>
+					<p>Pageviews/Visitor</p>
+					<h3 class="<?=$shift?>"><?=round($cur_ratio)?> <i class="icon-arrow-<?=$shift?>"></i></h3>
+					<small>previous: <?=round($prev_ratio)?></small>
+				</li>
+
+			</ul>
+		</div>
+	</div>
+
+<? Phpr_View::end_block() ?>
