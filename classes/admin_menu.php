@@ -3,7 +3,7 @@
 class Admin_Menu
 {
 	protected $items;
-	protected $module;
+	protected $module_id;
 	protected static $self = null;
 
 	public function __construct()
@@ -24,9 +24,9 @@ class Admin_Menu
 	{
 		$modules = Core_Module_Manager::get_modules();
 
-		foreach ($modules as $id=>$module)
+		foreach ($modules as $id => $module)
 		{
-			$this->module = strtolower($id);
+			$this->module_id = strtolower($id);
 			$module->build_admin_menu($this);
 		}
 
@@ -43,7 +43,7 @@ class Admin_Menu
 
 	public function add($id, $name, $link=null, $position=500)
 	{
-		return $this->items[] = new Admin_Menu_Item($id, $name, $link, $position, $this->module);
+		return $this->items[] = new Admin_Menu_Item($id, $name, $link, $position, $this->module_id);
 	}
 
 	public function get_items($include_hidden=false)
@@ -77,5 +77,16 @@ class Admin_Menu
 			return true;
 		else
 			return false;
+	}
+
+	public function get_active_item($app_menu)
+	{
+		$active_item = null;
+		foreach ($this->get_items() as $item) {
+			if ($item->id == $app_menu) {
+				$active_item = $item;
+			}
+		}
+		return $active_item;
 	}
 }

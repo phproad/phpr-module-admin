@@ -8,27 +8,27 @@ class Admin_Menu_Item
 	public $link;
 	public $icon;
 	public $position;
-	public $module;
+	public $module_id;
 	public $label;
 	public $permission;
 	public $visible;
 
 	public $children;
 
-	public function __construct($id, $name, $link, $position, $module)
+	public function __construct($id, $name, $link, $position, $module_id)
 	{
 		$this->id = $id;
 		$this->name = $name;
 		$this->link = $link;
 		$this->position = $position;
-		$this->module = $module;
+		$this->module_id = $module_id;
 		$this->children = array();
 		$this->visible = $this->check_permission();
 	}
 
 	public function add_child($id, $name, $link, $position=500)
 	{
-		return $this->children[] = new self($id, $name, $link, $position, $this->module);
+		return $this->children[] = new self($id, $name, $link, $position, $this->module_id);
 	}
 
 	public function sort_children()
@@ -38,8 +38,9 @@ class Admin_Menu_Item
 
 		uasort($this->children, array('Admin_Menu', 'compare_menu_positions'));
 
-		foreach ($this->children as $item)
+		foreach ($this->children as $item) {
 			$item->sort_children();
+		}
 	}
 
 	public function print_children($selected_id=null, $show_nested=true, $params=array())
@@ -54,13 +55,13 @@ class Admin_Menu_Item
 
 		$str = "";
 		$children = $this->children;
-		if ($children)
-		{
+		if ($children) {
+
 			if ($options['wrap_tag'])
 				$str .= "<".$options['wrap_tag'].">".PHP_EOL;
 
-			foreach ($children as $child)
-			{
+			foreach ($children as $child) {
+
 				$current = ($selected_id == $child->id) ? $options['active_class'] : '';
 				$str .= '<li class="'. $current .'"><a href="'.url($child->link).'">'.$child->name.'</a>';
 				if ($show_nested && $child->children)
@@ -86,15 +87,16 @@ class Admin_Menu_Item
 
 		$user = Phpr::$security->get_user();
 
-		foreach ($this->permission as $permission)
-		{
-			if ($user->get_permission($this->module, $permission))
+		foreach ($this->permission as $permission) {
+			
+			if ($user->get_permission($this->module_id, $permission))
 				return true;
 		}
 
 		return false;
 	}
 
+	//
 	// Setters
 	//
 
