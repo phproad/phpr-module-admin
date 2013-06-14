@@ -1,0 +1,5 @@
+<?= Phpr_Form::open_tag(array('class'=>'navbar-form')) ?>
+	<ul class="nav">
+		<li><?= cp_button('Clear the log', 'remove', array(), 'index_on_clear', "customIndicator: LightLoadingIndicator, confirm: 'Do you really want to delete all records from the error log?'") ?></li>
+	</ul>
+</form>

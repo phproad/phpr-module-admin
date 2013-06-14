@@ -1,0 +1,22 @@
+<? Admin_Breadcrumb::add('Settings', 'admin/settings')->add('Error Log', 'admin/error_log')->add($this->app_page_title);?>
+<? Phpr_View::begin_block("view") ?>
+
+<? if (!isset($fatal_error)): ?>
+	<div class="form-fluid">
+		<?=form_open()?>
+			<? $this->form_render_preview() ?>
+
+			<div id="fixed-toolbar" class="top">
+				<div class="form-toolbar">
+					<?= admin_button('Return to the error list', url('/admin/error_log')) ?>
+				</div>
+			</div>
+			
+		<?=form_close()?>
+	</div>
+<? else: ?>
+	<?= flash() ?>
+	<p><a href="<?= url('admin/error_log') ?>">Return to the error list</a></p>
+<? endif ?>
+
+<? Phpr_View::end_block() ?>
