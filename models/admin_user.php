@@ -78,8 +78,6 @@ class Admin_User extends Phpr_User
 
                 if (!Phpr_Module_Manager::module_exists('user'))
                     $field->comment('The message cannot be send because email system is not installed.')->disabled();
-                else if (!Email_Config::create()->is_configured())
-                    $field->comment('The message cannot be send because email system is not configured. To configure it please visit the System Settings tab.')->disabled();
                 else
                     $field->comment('Use this checkbox to send an invitation to the user by email.');
             }

@@ -100,24 +100,24 @@ class Admin_Chart
 		}
 	}
 
-	public function renderChart($engine = 'mootools')
+	public function renderChart($engine = 'jquery')
 	{
-		if ( $engine == 'jquery')
-			$chartJS = '$(document).ready(function() {';
+		if ($engine == 'mootools')
+			$chart_js = 'window.addEvent(\'domready\', function() {';
 		else
-			$chartJS = 'window.addEvent(\'domready\', function() {';
+			$chart_js = '$(document).ready(function() {';
 
 		$options = new Admin_Chart_Options();
 
-		$chartJS .= "\n    Highcharts.setOptions(\n";
-		$chartJS .= "       " . json_encode($options) . "\n";
-		$chartJS .= "    );\n";
-		$chartJS .= "\n\n    // '" . $this->title->text . "' " . $this->chart->type . " chart";
-		$chartJS .= "\n    var " . $this->chart->renderTo . " = new Highcharts.Chart(\n";
-		$chartJS .= "       " . $this->get_chart_options_object() . "\n";
-		$chartJS .= "    );\n";
-		$chartJS .= "\n  });\n";
-		return trim($chartJS);
+		$chart_js .= "\n    Highcharts.setOptions(\n";
+		$chart_js .= "       " . json_encode($options) . "\n";
+		$chart_js .= "    );\n";
+		$chart_js .= "\n\n    // '" . $this->title->text . "' " . $this->chart->type . " chart";
+		$chart_js .= "\n    var " . $this->chart->renderTo . " = new Highcharts.Chart(\n";
+		$chart_js .= "       " . $this->get_chart_options_object() . "\n";
+		$chart_js .= "    );\n";
+		$chart_js .= "\n  });\n";
+		return trim($chart_js);
 	}
 	
 	public function get_chart_options_object()
