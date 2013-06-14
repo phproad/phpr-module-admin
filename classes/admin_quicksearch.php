@@ -19,7 +19,7 @@ class Admin_Quicksearch
 
 	public static function process_search($params) 
 	{
-		$query = post('term', 'home');
+		$query = post('term');
 		$obj = self::create($query);
 		echo $obj->get_results();
 	}
@@ -63,7 +63,7 @@ class Admin_Quicksearch
 				'link' => 'javascript:;'
 			);
 		}
-		
+
 		echo json_encode($results);
 	}
 
