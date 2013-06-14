@@ -110,7 +110,10 @@ function init_scrollable_toolbars() {
 
 function destroy_scrollable_toolbars() {
 	jQuery.each(window.ScrollToolbars, function(key, toolbar){
-		toolbar.scrollableToolbar('destroy');
+		try { 
+			toolbar.scrollableToolbar('destroy'); 
+		} 
+		catch (err) { }
 	});
 	window.ScrollToolbars = [];
 }

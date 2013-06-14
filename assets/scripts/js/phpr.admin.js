@@ -120,7 +120,6 @@
 	// 
 
 
-	// PHPR.postDefaults.loadIndicator.show = false;
 	PHPR.requestDefaults.cmsMode = false;
 
 	PHPR.post.popupError = function(requestObj) {

@@ -94,7 +94,7 @@ jQuery.fn.extend({
 	admin_show: function(){ jQuery(this).removeClass('hidden'); }
 });
 
-function popupAjaxError(requestObj) {	
+function popupAjaxError(requestObj) {
 	if (requestObj.errorMessage)
 		alert(requestObj.errorMessage);
 	else
