@@ -1,4 +1,18 @@
 //
+// URL function
+//
+
+function admin_url(url) {
+	if (typeof admin_root_dir === 'undefined' || !admin_root_dir)
+		return url;
+		
+	if (url.substr(0,1) == '/')
+		url = url.substr(1);
+	
+	return admin_root_dir + url;
+}
+
+//
 // Light loading indicator
 //
 

@@ -2,8 +2,9 @@
 <?=Phpr_View::include_javascript('defaults', module_build('core')) ?>
 <script>
 <!--
-application_root_dir = '<?=Phpr::$request->get_subdirectory() ?>';
-phpr_root_dir = '<?=Phpr::$request->get_subdirectory().Phpr::$config->get("PHPR_URL") ?>/';
+application_root_dir = '<?= root_url() ?>';
+admin_root_dir = '<?= url() ?>';
+phpr_root_dir = '<?= root_url(Phpr::$config->get('PHPR_URL')) ?>/';
 // -->
 </script>
 

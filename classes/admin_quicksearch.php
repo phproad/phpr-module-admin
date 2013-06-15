@@ -17,17 +17,15 @@ class Admin_Quicksearch
 		return $obj;
 	}
 
-	public static function process_search($params) 
+	public static function process_search() 
 	{
 		$query = post('term');
 		$obj = self::create($query);
-		echo $obj->get_results();
+		return $obj->get_results();
 	}
 
 	public function get_results() 
 	{
-		header('Content-type: application/json');
-
 		$results = array();
 
 		try {
@@ -64,7 +62,7 @@ class Admin_Quicksearch
 			);
 		}
 
-		echo json_encode($results);
+		return $results;
 	}
 
 	protected function load_items()

@@ -48,11 +48,4 @@ class Admin_Module extends Core_Module_Base
 		$host->add_permission_field($this, 'manage_settings', 'Manage settings', 'right')->display_as(frm_checkbox)->comment('Manage website settings');
 	}
 
-	public function subscribe_access_points($action = null)
-	{
-		return array(
-			'api_admin_quicksearch' => 'Admin_Quicksearch::process_search',
-		);
-	}
-
 }

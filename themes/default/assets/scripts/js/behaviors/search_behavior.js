@@ -21,7 +21,7 @@ var Admin_Page = (function(page, $){
 			minLength: 0,
 			appendTo: _container_element.find('>.dropdown'),
 			source: function (request, response) {
-				$.post(root_url('api_admin_quicksearch'), request, response);
+				$.post(admin_url('admin/index/quicksearch'), request, response);
 			},
 			select: function(event, ui) {
 				LightLoadingIndicator().show();

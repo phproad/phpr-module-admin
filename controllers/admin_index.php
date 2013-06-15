@@ -9,6 +9,10 @@ class Admin_Index extends Admin_Controller
 		$this->app_menu = 'dash';
 	}
 
+	//
+	// Dashboard
+	// 
+
 	public function index()
 	{
 		$this->app_page_title = 'Dashboard';
@@ -42,6 +46,18 @@ class Admin_Index extends Admin_Controller
 		$start = $end->add_days(-30);
 		$cms_data = Cms_Statistics::get_chart_series($start, $end);
 		return $cms_data;
+	}
+
+	//
+	// Quicksearch
+	// 
+
+	public function quicksearch()
+	{
+		$this->suppress_view();
+		header('Content-type: application/json');
+		$results = Admin_Quicksearch::process_search();
+		echo json_encode($results);
 	}
 
 }
