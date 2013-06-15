@@ -1316,7 +1316,7 @@ fieldset.form-elements:after {
 }
 fieldset.form-elements .control-section {
   clear: both;
-  border-bottom: 1px dashed #666;
+  border-bottom: 1px dashed #dddddd;
   margin-bottom: 7px;
 }
 fieldset.form-elements .control-section h4 {
