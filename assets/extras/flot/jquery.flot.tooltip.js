@@ -65,7 +65,6 @@
 
             // bind event
             $( plot.getPlaceholder() ).bind("plothover", function (event, pos, item) {
-                that.updateTooltipPosition({ x: pos.pageX, y: pos.pageY });
 
                 if (item) {
                     var tipText;
@@ -73,8 +72,9 @@
                     // convert tooltip content template to real tipText
                     tipText = that.stringFormat(that.tooltipOptions.content, item);
 
-                    $tip.html( tipText )
-                        .css({
+                    $tip.html( tipText );
+                    that.updateTooltipPosition({ x: pos.pageX, y: pos.pageY });
+                    $tip.css({
                             left: that.tipPosition.x + that.tooltipOptions.shifts.x,
                             top: that.tipPosition.y + that.tooltipOptions.shifts.y
                         })
@@ -132,8 +132,13 @@
 
     // as the name says
     FlotTooltip.prototype.updateTooltipPosition = function(pos) {
-        if (pos.x > ($(document).width() - 2 * $("#flotTip").width() - this.tooltipOptions.shifts.x)) {
-                pos.x -= ($("#flotTip").width() + 2 * this.tooltipOptions.shifts.x);
+        var totalTipWidth = $("#flotTip").outerWidth() + this.tooltipOptions.shifts.x;
+        var totalTipHeight = $("#flotTip").outerHeight() + this.tooltipOptions.shifts.y;
+        if ((pos.x - $(window).scrollLeft()) > ($(window).innerWidth() - totalTipWidth)) {
+            pos.x -= totalTipWidth;
+        }
+        if ((pos.y - $(window).scrollTop()) > ($(window).innerHeight() - totalTipHeight)) {
+            pos.y -= totalTipHeight;
         }
         this.tipPosition.x = pos.x;
         this.tipPosition.y = pos.y;
@@ -210,7 +215,7 @@
 
     //
     FlotTooltip.prototype.timestampToDate = function(tmst, dateFormat) {
-        var theDate = new $.plot.dateGenerator(tmst, this.plotOptions);
+        var theDate = new Date(tmst);
         return $.plot.formatDate(theDate, dateFormat);
     };
 
