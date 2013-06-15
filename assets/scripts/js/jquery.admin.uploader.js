@@ -93,7 +93,7 @@
 
 		_toggle_progress_bar: function(is_show) { var self = this;
 			if (is_show) {
-				self.progressBar.css('width', '10%').parent().fadeTo(500, 1);
+				self.progressBar.css('width', '0%').parent().fadeTo(500, 1);
 				self.triggerElement.fadeTo(250, 0);
 			} else {
 				self.progressBar.css('width', '100%').parent().fadeTo(500, 0, function() {

@@ -11,7 +11,7 @@ class Admin_Access_Tools extends Admin_Controller
 		),
 		'humanstxt' => array(
 			'file_name' => 'humans.txt', 
-			'description' => 'Provide information about the people and techniques behind the website'
+			'description' => 'Provide information about the people and technology behind the website'
 		),
 		'robotstxt' => array(
 			'file_name' => 'robots.txt', 
@@ -21,38 +21,35 @@ class Admin_Access_Tools extends Admin_Controller
 
 	public $form_redirect = null;
 	
-	public function __construct()   
+	public function __construct()
 	{
 		parent::__construct();
 		
-		//set up the menu tabs
 		$this->app_module = 'system';
 		$this->app_menu = 'system';
 		$this->app_page = 'settings';
 		
-		$this->app_module_name = 'System';      
+		$this->app_module_name = 'System';
 		$this->app_page_title = 'Access Tools';
 		
 		$this->view_data['filename'] = false;
 	}
 	
-	public function index()     
+	public function index()
 	{
 		foreach($this->data as $i => $file) 
 		{
-			//check if the file exists
+			// Check if the file exists
 			$full_path = PATH_APP.'/'.$file['file_name'];
-			if (!file_exists($full_path) || !is_file($full_path))   
-			{
+			if (!file_exists($full_path) || !is_file($full_path)) {
 				$this->data[$i]['status'] = 'File does not exist';
 			}
-			else 
-			{
-				//if it exists, check when it was last modified
+			else {
+				// If it exists, check when it was last modified
 				$date = new Phpr_DateTime();
 				$date->set_php_datetime(filemtime($full_path));
 				$this->data[$i]['status'] = 'File last modified '.Phpr_Date::display($date, '%x %X');
-			}           
+			}
 		}
 		$this->view_data['data'] = $this->data;
 	}
@@ -60,28 +57,32 @@ class Admin_Access_Tools extends Admin_Controller
 	public function edit($filename) 
 	{
 		$this->view_data['data'] = $this->data;
+		$this->view_data['brush'] = ''; // Text brush
+
 		if (array_key_exists($filename, $this->data)) 
 		{
 			$file_path = $this->data[$filename]['file_name'];
 			$this->view_data['filename'] = $filename;
 		
 			$this->app_page_title = 'Edit '.$file_path;
+
 			try 
 			{
 				$full_path = PATH_APP.'/'.$file_path;
-				if (!file_exists($full_path) || !is_file($full_path))   
-				{
-					$this->view_data['file_contents'] = '';                  
+
+				if (!file_exists($full_path) || !is_file($full_path)) {
+					$this->view_data['file_contents'] = '';
 				}
-				elseif (!$this->view_data['file_contents'] = file_get_contents($full_path))  
-				{
+				else if (!$this->view_data['file_contents'] = file_get_contents($full_path)) {
 					throw new Phpr_ApplicationException('Could not open the file!');
 				}
+
 				$this->view_data['full_path'] = $full_path;
 				$this->view_data['file_path'] = $file_path;
 				
-				$pathInfo = pathinfo($file_path);
-				$this->view_data['ext'] = 'txt';
+				// @todo detect file extension and change brush
+				// $path_info = pathinfo($file_path);
+				// $this->view_data['brush'] = 'php';
 			}
 			catch (Exception $ex) 
 			{
@@ -90,7 +91,7 @@ class Admin_Access_Tools extends Admin_Controller
 		}
 		else 
 		{
-			try     
+			try
 			{
 				throw new Phpr_ApplicationException('Unknown file! The file you are trying to edit is not part of Access Tools');
 			}
@@ -101,7 +102,7 @@ class Admin_Access_Tools extends Admin_Controller
 		}
 	}
 	
-	protected function edit_on_save($filename)   
+	protected function edit_on_save($filename)
 	{
 		$created = false;
 		if (array_key_exists($filename, $this->data)) 
@@ -112,7 +113,7 @@ class Admin_Access_Tools extends Admin_Controller
 			{
 				if (!file_exists($full_path) || !is_file($full_path)) 
 				{
-					//if file does not exist, create an empty one with that name
+					// If file does not exist, create an empty one with that name
 					if (!$file_handle = @fopen($full_path, 'w')) 
 					{
 						throw new Phpr_ApplicationException('Could not create the file! Please check the folder permissions or create the file yourself.');
@@ -121,8 +122,8 @@ class Admin_Access_Tools extends Admin_Controller
 					{
 						$created = true;
 						fwrite($file_handle, ' ');
-						chmod($full_path, 0755);
-						fclose($file_handle);               
+						chmod($full_path, File::get_permissions());
+						fclose($file_handle);
 					}
 				}
 
@@ -143,9 +144,9 @@ class Admin_Access_Tools extends Admin_Controller
 
 					$this->display_partial('flash');
 					
-					if (post('redirect', 1))    
+					if (post('redirect', true))
 					{
-						Phpr::$response->redirect(url('admin/access_tools/'));
+						Phpr::$response->redirect(url('admin/access_tools'));
 					}
 				}
 			}
@@ -169,6 +170,6 @@ class Admin_Access_Tools extends Admin_Controller
 	
 	protected function edit_on_cancel($filename) 
 	{
-		Phpr::$response->redirect(url('admin/access_tools/'));
+		Phpr::$response->redirect(url('admin/access_tools'));
 	}
 }

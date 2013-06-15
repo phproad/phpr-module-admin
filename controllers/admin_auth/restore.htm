@@ -36,15 +36,15 @@
 </div>
 <script>
 function submit_restore() {
-	$('restore-form').sendPhpr('restore_on_send', {
+	$('#restore-form').phpr().post('restore_on_send', {
 		loadIndicator: {
-			element: 'content-inner', 
+			element: '#content-inner', 
 			hideOnSuccess: true, 
 			show: true, 
 			injectInElement: true
 		}, 
-		update: 'content-inner'
-	});
+		update: '#content-inner'
+	}).send();
 
 	return false;
 }

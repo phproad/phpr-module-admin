@@ -69,15 +69,15 @@
 				sort_orders: self._list_orders.join(',')
 			});
 
-			this.element.closest('form').get(0).sendPhpr(self.options.handler, {
-				extraFields: postData,
+			this.element.closest('form').phpr().post(self.options.handler, {
+				data: postData,
 				loadIndicator: { show:false },
 				update: 'multi',
-				onResult: function(data) {
-					self.element.trigger('sortComplete', [data]);
+				complete: function(requestObj) {
+					self.element.trigger('sortComplete', [requestObj]);
 					self.options.onSortComplete && self.options.onSortComplete();
 				}
-			});
+			}).send();
 		},
 
 		destroy: function() {
