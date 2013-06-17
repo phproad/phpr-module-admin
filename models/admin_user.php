@@ -328,11 +328,5 @@ class Admin_User extends Phpr_User
 			$module->build_admin_permissions($this);
 		}
 	}
-
-	// Required by PHPR
-	public function find_user($login, $password)
-	{
-		return $this->where('login = lower(?)', $login)->where('password = ?', Phpr_SecurityFramework::create()->salted_hash($password))->find();
-	}
 }
 
