@@ -68,5 +68,26 @@ class Admin_Updates extends Admin_Controller
 		}
 	}
 
+	protected function index_on_sync_database()
+	{
+		try
+		{
+			$modules = Core_Module_Manager::get_modules();
+			foreach ($modules as $id => $module) {
+				$module_id = strtolower($id);
+				Db_Update_Manager::apply_db_structure(PATH_APP, $module_id);
+			}
+
+			Db_Structure::save_all();
+
+			Phpr::$session->flash['success'] = 'Database tables have been updated successfully';
+			Phpr::$response->redirect(url('admin/updates'));
+		}
+		catch (Exception $ex)
+		{
+			Phpr::$response->ajax_report_exception($ex, true, true);
+		}
+	}
+
 
 }

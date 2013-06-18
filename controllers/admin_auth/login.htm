@@ -11,7 +11,7 @@
 
 		<!-- Passable fields -->
 		<input type="hidden" name="redirect" value="<?=h(post('redirect', $redirect)) ?>" />
-		<input type="hidden" name="postback" value="1" />        
+		<input type="hidden" name="postback" value="1" />
 
 		<!-- Login Message -->
 		<? if (Phpr::$config->get('LOGIN_MESSAGE')): ?>
@@ -24,14 +24,14 @@
 			<div class="control-group text">
 				<label class="control-label">Username</label>
 				<div class="controls">
-					<input name="login" type="text" class="input-user" id="login" value="<?=h(Phpr::$config->get('DEFAULT_LOGIN_USER', post('login'))) ?>" />
+					<input name="login" type="text" class="input-user" id="login" placeholder="Username" value="<?=h(Phpr::$config->get('DEFAULT_LOGIN_USER', post('login'))) ?>" />
 				</div>
 			</div>
 
 			<div class="control-group password">
 				<label class="control-label">Password</label>
 				<div class="controls">
-					<input name="password" type="password" class="input-pass" id="password" value="<?=Phpr::$config->get('DEFAULT_LOGIN_PASSWORD') ?>" />
+					<input name="password" type="password" class="input-pass" id="password" placeholder="Password" value="<?=Phpr::$config->get('DEFAULT_LOGIN_PASSWORD') ?>" />
 				</div>
 			</div>
 

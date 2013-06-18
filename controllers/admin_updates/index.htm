@@ -4,14 +4,15 @@
 <? Phpr_View::begin_block("view") ?>
 	<?=flash()?>
 	<?=Phpr_Form::open_tag() ?>
+	
 		<div class="navbar">
 			<div class="navbar-inner">
 				<ul class="nav">
-					<li><?=cp_button('Check for updates', 'magic', array('href'=>'#', 'onclick'=>"new PopupForm('index_on_update_form', {closeByEsc: false}); return false;")) ?></li>
+					<li><?=cp_button('Check for updates', 'bolt', array('href'=>'javascript:;', 'onclick'=>"new PopupForm('index_on_update_form', {closeByEsc: false}); return false;")) ?></li>
+					<li><?=cp_button('Sync database', 'columns', array('href'=>'javascript:;', 'onclick'=>"return $(this).phpr().post('index_on_sync_database', { confirm: 'Do you really want to synchronize the database tables?' }).send()")) ?></li>
 				</ul>
 			</div>
 		</div>
-		<div class="clear"></div>
 
 		<table class="table list-table">
 			<thead class="">

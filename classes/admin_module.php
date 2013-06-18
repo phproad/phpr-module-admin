@@ -18,12 +18,13 @@ class Admin_Module extends Core_Module_Base
 		$dash = $menu->add('dash', 'Dashboard', '/', 100)->icon('dashboard')->permission('access_dashboard');
 
 		$system = $menu->add('system', 'System', '/admin/settings', 1000)->icon('cog')->permission(array('manage_users', 'manage_updates', 'manage_settings'));
-		$system->add_child('admins', 'Staff', '/admin/users')->permission('manage_users');
+		$system->add_child('settings', 'Settings', '/admin/settings')->permission('manage_settings');
+		
 
 		if (!Phpr::$config->get('DISABLE_UPDATES', false))
 			$system->add_child('updates', 'Updates', '/admin/updates')->permission('manage_updates');
 
-		$system->add_child('settings', 'Settings', '/admin/settings')->permission('manage_settings');
+		$system->add_child('admins', 'Staff', '/admin/users')->permission('manage_users');
 	}
 
 	public function build_admin_tray($tray)
