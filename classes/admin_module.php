@@ -49,4 +49,15 @@ class Admin_Module extends Core_Module_Base
 		$host->add_permission_field($this, 'manage_settings', 'Manage settings', 'right')->display_as(frm_checkbox)->comment('Manage website settings');
 	}
 
+	public function build_quicksearch_feed($feed, $query)
+	{
+		$feed->add('users', User::create(), array(
+			'item_name' => 'Staff', 
+			'icon' => 'shield',
+			'label_field' => 'name',
+			'search_fields' => array('login', 'email', 'first_name', 'last_name'),
+			'link' => url('user/users/edit/%s')
+		));	
+	}
+
 }
