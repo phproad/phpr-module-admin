@@ -51,12 +51,12 @@ class Admin_Module extends Core_Module_Base
 
 	public function build_quicksearch_feed($feed, $query)
 	{
-		$feed->add('users', User::create(), array(
+		$feed->add('users', Admin_User::create(), array(
 			'item_name' => 'Staff', 
 			'icon' => 'shield',
-			'label_field' => 'name',
+			'label_field' => 'short_name',
 			'search_fields' => array('login', 'email', 'first_name', 'last_name'),
-			'link' => url('user/users/edit/%s')
+			'link' => url('admin/users/edit/%s')
 		));	
 	}
 
