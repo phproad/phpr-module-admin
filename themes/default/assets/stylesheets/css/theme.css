@@ -117,9 +117,9 @@
   text-align: center;
   margin: 5px;
   color: #FFF;
+  text-decoration: none;
   opacity: 0.5;
   filter: alpha(opacity=50);
-  text-decoration: none;
 }
 #site-header a.tray-link span {
   display: none;
@@ -184,7 +184,7 @@
   }
 }
 #site-tray > section {
-  position: absolute;
+  position: fixed;
   background: #333333;
   top: 45px;
   right: 0;
