@@ -105,9 +105,9 @@
   list-style: none;
   border-left: 1px solid #434343;
   background: #333333;
-  -webkit-box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 #site-header a.tray-link {
   line-height: 35px;
