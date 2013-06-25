@@ -46,19 +46,45 @@
 
 			var element = null;
 
+			//
+			// Find an element to inject the error
+			// 
+			
 			if (_options.errorHighlight.element != null) { 
 				element = $(_options.errorHighlight.element);
 			}
 			else if (requestObj.postObj) {
-				var postForm = requestObj.postObj.getFormElement();
+				var postForm = requestObj.postObj.getFormElement(),
+					updateObj = requestObj.postObj.getOption('update');
+				
 				if (postForm)
 					element = postForm.find('.form-flash:first');
+				else if (updateObj instanceof jQuery)
+					element = updateObj;
 			}
 
 			if (!element || !element.length)
 				return;
 
-			element.html('');
+			//
+			// Handle popup
+			// 
+			
+			var isPopup = element.hasClass('popupForm');
+			if (isPopup) {
+				element
+					.wrapInner('<div class="content" />')
+					.wrapInner('<div class="form-600" />');
+
+				element = element.find('>*>*');
+			}
+
+			//
+			// Generate an error alert
+			// 
+			
+			if (!isPopup)
+				element.html('');
 			
 			var pElement = $('<div />').addClass('alert alert-error');
 			pElement.html(requestObj.errorMessage);
@@ -70,7 +96,7 @@
 						backgroundColor: _options.errorHighlight.backgroundToColor
 					}, 500, 'easeOutSine');
 			}
-			
+
 			// Re-align popup forms
 			realignPopups();
 		}
@@ -87,7 +113,7 @@
 
 			if (_options.errorHighlight.element != null)
 				element = $(_options.errorHighlight.element);
-			else if (requestObj.postObj) {		
+			else if (requestObj.postObj) {
 				var postForm = requestObj.postObj.getFormElement();
 				if (postForm)
 					element = postForm.find('.form-flash:first');
