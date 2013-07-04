@@ -13,10 +13,10 @@
 	<!-- <link rel="stylesheet" href="modules/admin/assets/stylesheets/css/login.css" /> -->
 
 	<!-- Theme -->
-	<link href="modules/admin/themes/<?= Admin_Config::get_theme_id() ?>/assets/stylesheets/css/bootstrap.css" rel="stylesheet" />
-	<link href="modules/admin/themes/<?= Admin_Config::get_theme_id() ?>/assets/stylesheets/css/theme.css" rel="stylesheet" />
-	<link href="modules/admin/themes/<?= Admin_Config::get_theme_id() ?>/assets/stylesheets/css/login.css" rel="stylesheet" />
-	<link href="modules/admin/themes/<?= Admin_Config::get_theme_id() ?>/assets/stylesheets/css/vendor.css" rel="stylesheet" />
+	<link href="modules/admin/skins/<?= Admin_Config::get_theme_id() ?>/assets/stylesheets/css/bootstrap.css" rel="stylesheet" />
+	<link href="modules/admin/skins/<?= Admin_Config::get_theme_id() ?>/assets/stylesheets/css/theme.css" rel="stylesheet" />
+	<link href="modules/admin/skins/<?= Admin_Config::get_theme_id() ?>/assets/stylesheets/css/login.css" rel="stylesheet" />
+	<link href="modules/admin/skins/<?= Admin_Config::get_theme_id() ?>/assets/stylesheets/css/vendor.css" rel="stylesheet" />
 
 	<link rel="stylesheet" href="<?=Phpr::$config->get('PHPR_URL', 'phpr')?>/modules/db/behaviors/db_form_behavior/assets/css/form.css" type="text/css" />
 	<?=Phpr_View::block("head") ?>
@@ -30,12 +30,12 @@
 
 					<!-- Photo -->
 					<div class="photo" id="login_photo" style="display: none">
-						<img src="modules/admin/themes/default/assets/images/avatar.png" alt="" />
+						<img src="modules/admin/skins/default/assets/images/avatar.png" alt="" />
 					</div>
 
 					<!-- Logo -->
 					<div class="logo" id="login_logo">
-						<img src="modules/admin/themes/default/assets/images/logo-login.png" alt="" />
+						<img src="modules/admin/skins/default/assets/images/logo-login.png" alt="" />
 					</div>
 
 					<?=Phpr_View::block("view") ?>

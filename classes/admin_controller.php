@@ -66,7 +66,7 @@ class Admin_Controller extends Phpr_Controller
 		$this->global_handlers[] = 'hint_hide';
 
 		$this->layout = 'admin';
-		$this->layout_path = PATH_APP.'/'.PHPR_MODULES.'/admin/themes/'.Admin_Config::get_theme_id().'/layouts';
+		$this->layout_path = PATH_APP.'/'.PHPR_MODULES.'/admin/skins/'.Admin_Config::get_theme_id().'/layouts';
 		$this->view_path = PATH_APP.'/'.PHPR_MODULES.'/'.$this->get_module_id().'/'.'controllers'.'/'.strtolower(get_class($this));
 
 		$is_public_action = in_array(Phpr::$router->action, $this->public_actions);
