@@ -2,9 +2,11 @@
 	<link type="text/css" rel="stylesheet" href="modules/admin/assets/stylesheets/css/updates.css" />
 <? Phpr_View::end_block() ?>
 <? Phpr_View::begin_block("view") ?>
-	<?=flash()?>
+	
 	<?=Phpr_Form::open_tag() ?>
 	
+		<div class="form-flash"><?=flash()?></div>
+
 		<div class="navbar">
 			<div class="navbar-inner">
 				<ul class="nav">
@@ -24,9 +26,10 @@
 				</tr>
 			</thead>
 			<tbody id="update_list">
-				<? foreach ($modules as $module):
-					$module_info = $module->get_module_info();
-				?>
+				<? foreach ($modules as $module): ?>
+					<?
+						$module_info = $module->get_module_info();
+					?>
 					<tr class="<?=Phpr_Html::zebra('modules') ?>">
 						<td class="varchar current"><?=h($module_info->name) ?></td>
 						<td class="varchar"><?=h($module_info->description) ?></td>
@@ -38,4 +41,5 @@
 		</table>
 
 	</form>
+
 <? Phpr_View::end_block() ?>
