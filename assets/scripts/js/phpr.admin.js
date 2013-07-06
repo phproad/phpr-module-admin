@@ -63,6 +63,10 @@
 					element = updateObj;
 			}
 
+			// Last resort, find anything to use
+			if (!element.length)
+				element = $('body').find('.form-flash:first');
+
 			if (!element || !element.length)
 				return;
 
