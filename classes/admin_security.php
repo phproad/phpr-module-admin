@@ -13,7 +13,7 @@ class Admin_Security extends Phpr_Security
 		$this->user_class_name = "Admin_User";
 	}
 
-	public function login(Phpr_Validation $validation = null, $redirect = null, $login = null, $password = null)
+	public function login($validation = null, $redirect = null, $login = null, $password = null)
 	{
 		if (parent::login($validation, null)) {
 			Phpr::$events->fire_event('admin:on_login');

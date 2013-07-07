@@ -5,10 +5,10 @@ class Admin_Html
 	public static function url($resource, $add_hostname = false, $protocol = null)
 	{
 		$resource = Phpr_String::normalize_uri($resource);
-		$backend_url = Phpr_String::normalize_uri(Phpr::$config->get('ADMIN_URL', 'admin'));
+		$admin_url = Phpr_String::normalize_uri(Phpr::$config->get('ADMIN_URL', 'admin'));
 
-		return Phpr_Url::root_url($backend_url.$resource, $add_hostname, $protocol);
-	}    
+		return Phpr_Url::root_url($admin_url.$resource, $add_hostname, $protocol);
+	}
 
 	public static function controller_url()
 	{
