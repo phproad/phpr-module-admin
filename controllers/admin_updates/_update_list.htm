@@ -30,16 +30,18 @@
 						<h5><?= h($update_data->name) ?></h5>
 						<div class="<?= $last_index == $index ? 'last' : null ?> update-table">
 							<table class="list-table">
-								<thead class="">
-									<tr>
-										<th class="active varchar" width="75">Version</th>
-										<th class="varchar last">Description</th>
-									</tr>
-								</thead>
+								<? if ($index == 0): ?>
+									<thead class="">
+										<tr>
+											<th class="active varchar">Version</th>
+											<th class="varchar last">Description</th>
+										</tr>
+									</thead>
+								<? endif ?>
 								<tbody id="update-list">
 									<? foreach ($update_data->updates as $version=>$description): ?>
 										<tr class="<?=Phpr_Html::zebra('update_'.$module_code) ?>">
-											<td class="varchar active"><?= h($version) ?></td>
+											<td class="varchar active" style="width:60px"><?= h($version) ?></td>
 											<td class="varchar last"><?= preg_replace('/(http|ftp)+(s)?:(\/\/)((\w|\.)+)(\/)?(\S+)?/i', '<a href="\0" target="_blank">\4</a>', h($description)) ?></td>
 										</tr>
 									<? endforeach ?>
