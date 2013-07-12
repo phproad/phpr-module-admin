@@ -13,11 +13,11 @@
 					<? 
 						$is_active = $this->app_menu == $item->id; 
 					?>
-					<li class="<?=$is_active?'active':''?>">
-						<a href="<?=url($item->link)?>" class="menu-item-<?=$item->id?>">
-							<i class="icon-<?=$item->icon?>"></i>
-							<span><?=$item->name?></span>
-							<? if ($item->label): ?><span class="label label label-important"><?=$item->label?></span><? endif ?>
+					<li class="<?= $is_active ? 'active' : '' ?>">
+						<a href="<?= url($item->link) ?>" class="menu-item-<?= $item->id ?>">
+							<i class="icon-<?= $item->icon ?>"></i>
+							<span><?= $item->name ?></span>
+							<? if ($item->label): ?><span class="label label label-important"><?= $item->label ?></span><? endif ?>
 						</a>
 					</li>
 				<? endforeach ?>
@@ -30,10 +30,10 @@
 <? if ($has_children): ?>
 	<!-- Sub Navigation -->
 	<div id="site-subnav">
-		<h4 class="title"><i class="icon-<?=$active_item->icon?>"></i> <?=$active_item->name?></h4>
+		<h4 class="title"><i class="icon-<?=$active_item->icon?>"></i> <?= $active_item->name ?></h4>
 		<div id="site-subnav-scroll-area">
 			<ul class="nav nav-tabs nav-stacked">
-				<?=$active_item->print_children($this->app_page, false, array('wrap_tag'=>false))?>
+				<?= $active_item->print_children($this->app_page, false, array('wrap_tag'=>false)) ?>
 			</ul>
 		</div>
 	</div>
