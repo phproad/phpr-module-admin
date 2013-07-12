@@ -89,9 +89,9 @@ class Admin_Menu
 		foreach ($items as $key=>$item)
 		{
 			// Link to the first child menu item
-			if (strpos($item->link, '@first') === null && $item->children) {
+			if (strpos($item->link, '@first') !== false && $item->children) {
 				$first_child = Phpr_Arr::first($item->children);
-				$item->link = $first_child->link;
+				$item->link = str_replace('@first', $first_child->link, $item->link);
 			}
 		}
 
