@@ -48,25 +48,15 @@ class Admin_Menu
 
 	public function get_items($include_hidden=false)
 	{
-		if (!count($this->items))
+		$items = $this->items;
+
+		if (!count($items))
 			return null;
 
-		if ($include_hidden)
-			return $this->items;
+		if (!$include_hidden)
+			$items = $this->apply_menu_visibility($this->items);
 
-		return $this->apply_menu_visibility($this->items);
-	}
-
-	private function apply_menu_visibility(&$items)
-	{
-		foreach ($items as $key=>$item)
-		{
-			if (!$item->visible)
-				unset($items[$key]);
-
-			if ($item->children)
-				$this->apply_menu_visibility($item->children);
-		}
+		$items = $this->apply_link_aliases($items);
 
 		return $items;
 	}
@@ -89,4 +79,37 @@ class Admin_Menu
 		}
 		return $active_item;
 	}
+
+	//
+	// Internals
+	// 
+
+	private function apply_link_aliases(&$items)
+	{
+		foreach ($items as $key=>$item)
+		{
+			// Link to the first child menu item
+			if (strpos($item->link, '@first') === null && $item->children) {
+				$first_child = Phpr_Arr::first($item->children);
+				$item->link = $first_child->link;
+			}
+		}
+
+		return $items;
+	}
+
+	private function apply_menu_visibility(&$items)
+	{
+		foreach ($items as $key=>$item)
+		{
+			if (!$item->visible)
+				unset($items[$key]);
+
+			if ($item->children)
+				$this->apply_menu_visibility($item->children);
+		}
+
+		return $items;
+	}
+
 }
