@@ -134,13 +134,13 @@ class Admin_Controller extends Phpr_Controller
 
 	protected function hint_render($name, $message, $can_hide=true)
 	{
-		$str = "";
+		$str = '<div class="clearfix"></div>';
 		if ($can_hide)
 			$str .= Phpr_Form::open_tag(array('id'=>'hint-form'));
 
-		$str .= '<div class="hint-container">';
+		$str .= '<div class="alert alert-block hint-container">';
 		$str .= '<div class="icon"></div>';
-		$str .= '<p class="last">'.$message.'</p>';
+		$str .= $message;
 
 		if ($can_hide)
 			$str .= '<a title="Hide this hint" href="javascript:;" class="close-hint" onclick="return Admin_Page.hideHint(\''.$name.'\', this)">Close</a>';
