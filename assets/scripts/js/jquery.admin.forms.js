@@ -1,6 +1,6 @@
-/*
- * Form styling
- */
+//
+// Form styling
+//
 
 function admin_style_forms() {
 	var $ = jQuery;

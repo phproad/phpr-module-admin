@@ -1,7 +1,6 @@
-
-/**
- * Scrollable tabs widget
- */
+//
+// Scrollable tabs widget
+//
 
 ;(function ($, window, document, undefined) {
 

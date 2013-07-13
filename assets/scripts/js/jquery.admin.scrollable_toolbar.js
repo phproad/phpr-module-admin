@@ -1,7 +1,6 @@
-
-/**
- * Scrollable toolbar widget
- */
+//
+// Scrollable toolbar widget
+//
 
 window.ScrollToolbars = [];
 window.ScrollToolbarOffsets = [];

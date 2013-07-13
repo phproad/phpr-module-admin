@@ -1,7 +1,6 @@
-
-/**
- * Chart widget
- */
+//
+// Chart widget
+//
 
 ;(function ($, window, document, undefined) {
 

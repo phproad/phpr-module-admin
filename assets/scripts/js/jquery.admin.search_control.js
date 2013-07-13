@@ -1,6 +1,6 @@
-/*
- * Search control
- */
+//
+// Search control
+//
 
 ;(function ($, window, document, undefined) {
 

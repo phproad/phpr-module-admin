@@ -1,8 +1,6 @@
-
-
-/**
- * Scrollable base class
- */
+//
+// Scrollable base class
+//
 
 ;(function ($, window, document, undefined) {
 

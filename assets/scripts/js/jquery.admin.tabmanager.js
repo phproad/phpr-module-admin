@@ -1,6 +1,6 @@
-/*
- * Tab managers
- */
+//
+// Tab managers
+//
 
 window.TabManagers = [];
 

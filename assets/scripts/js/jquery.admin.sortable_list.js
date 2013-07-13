@@ -1,7 +1,6 @@
-
-/**
- * Sortable class
- */
+//
+// Sortable class
+//
 
 ;(function ($, window, document, undefined) {
 
