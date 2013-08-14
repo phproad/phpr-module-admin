@@ -97,6 +97,10 @@ window.TabManagers = [];
 
 jQuery.fn.extend({
 	getTab: function(){
-		return jQuery(this).parents('.tab-pane:first');
+		var tab = jQuery(this).parents('.tab-pane:first');
+		if (tab.length > 0)
+			return tab;
+		else
+			return false;
 	}
 });
