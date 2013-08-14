@@ -1,5 +1,6 @@
-#1|1.0.1 Add user tables
-#2|1.0.2 Add greater control for permissions
-#3|1.0.3 Allow admin users to reset their preferences via My Settings
-#4|1.0.4 Add system tray and quick search
-#5|1.0.5 User Interface improvements
+#1|1.0.1 Add user tables.
+#2|1.0.2 Add greater control for permissions.
+#3|1.0.3 Allow admin users to reset their preferences via My Settings.
+#4|1.0.4 Add system tray and quick search.
+#5|1.0.5 User Interface improvements.
+#6|1.0.6 Fixes issue preventing staff from resetting their passwords.

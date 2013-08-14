@@ -107,6 +107,7 @@ class Admin_User extends Phpr_User
 	}
 
 
+	//
 	// Events
 	//
 
@@ -172,6 +173,7 @@ class Admin_User extends Phpr_User
 			throw new Phpr_ApplicationException("Users cannot be deleted after first login. You may disable the user account instead of deleting.");
 	}
 
+	//
 	// Options
 	//
 
@@ -184,6 +186,7 @@ class Admin_User extends Phpr_User
 		return $result;
 	}
 
+	//
 	// Service methods
 	//
 
@@ -225,6 +228,23 @@ class Admin_User extends Phpr_User
 		);
 	}
 
+	public function set_notify_vars(&$template, $prefix='')
+	{
+		$template->set_vars(array(
+			$prefix.'name'         => $this->name,
+			$prefix.'first_name'   => $this->first_name,
+			$prefix.'middle_name'  => $this->middle_name,
+			$prefix.'last_name'    => $this->last_name,
+			$prefix.'email'        => $this->email,
+			$prefix.'login'        => $this->login,
+			$prefix.'password'     => $this->plain_password,
+			$prefix.'phone'        => $this->phone,
+			$prefix.'mobile'       => $this->mobile,
+		));
+	}
+
+
+	//
 	// Custom fields
 	//
 
@@ -259,6 +279,7 @@ class Admin_User extends Phpr_User
 		return $module->$method_name($current_key_value);
 	}
 
+	//
 	// Permissions
 	//
 
