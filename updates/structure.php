@@ -2,7 +2,7 @@
 
 $table = Db_Structure::table('admin_users');
     $table->primary_key('id');
-    $table->column('login', db_varchar, 30)->set_default('')->not_null()->index()->unique();
+    $table->column('login', db_varchar, 30)->defaults('')->not_null()->index()->unique();
     $table->column('first_name', db_varchar)->index();
     $table->column('middle_name', db_varchar);
     $table->column('last_name', db_varchar)->index();
