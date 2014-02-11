@@ -2418,6 +2418,7 @@ button.ui-button::-moz-focus-inner {
 /* Datepicker */
 .ui-datepicker {
   border-color: #7bafcc;
+  z-index: 9999 !important;
 }
 .ui-datepicker .ui-datepicker-header {
   background-color: #7bafcc;
