@@ -2869,3 +2869,17 @@ body.page-admin-docs .vertical-toolbar.affix {
 #site-content.is-loaded {
   visibility: visible;
 }
+
+/* styles for form_render_report_preview */
+table.form-report-layout td.form-report-column{
+    border-right: 1px solid #CCCCCC;
+    vertical-align: top;
+}
+
+table.form-report-layout h3{
+padding-left: 10px;
+}
+
+table.form-report-layout td.form-report-column.last{
+border:0;
+}
