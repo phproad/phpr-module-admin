@@ -4,4 +4,4 @@
 #4|1.0.4 Add system tray and quick search.
 #5|1.0.5 User Interface improvements.
 #6|1.0.6 Fixes issue preventing staff from resetting their passwords.
-#7|1.0.7 Added local update button
+#7|1.0.7 Fixes issue where system area could only be accessed if 'settings' permission was granted. Renames 'Staff Users' to 'Administrators', and 'Administrator' admin_group to 'Super Admin'. Added $CONFIG['BLOCK_PERMISSION_EDIT'] to restrict module permission edits to Super Admins. Restricted edits to super admin accounts to super admins
