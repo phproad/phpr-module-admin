@@ -7,7 +7,9 @@
 	<? $this->display_layout('head') ?>
 
 	<!-- Core -->
-	<script src="modules/admin/assets/scripts/js/phproad.js"></script>
+	<!-- //@TODO missing file not required?
+	 <script src="modules/admin/assets/scripts/js/phproad.js"></script>
+	 -->
 	<script src="modules/admin/assets/scripts/js/admin.js"></script>
 	<script src="modules/admin/assets/scripts/js/login.js"></script>
 	<!-- <link rel="stylesheet" href="modules/admin/assets/stylesheets/css/login.css" /> -->
@@ -18,7 +20,10 @@
 	<link href="modules/admin/skins/<?= Admin_Config::get_theme_id() ?>/assets/stylesheets/css/login.css" rel="stylesheet" />
 	<link href="modules/admin/skins/<?= Admin_Config::get_theme_id() ?>/assets/stylesheets/css/vendor.css" rel="stylesheet" />
 
+    <!-- //@TODO missing file not required?
 	<link rel="stylesheet" href="<?=Phpr::$config->get('PHPR_URL', 'phpr')?>/modules/db/behaviors/form_behavior/assets/css/form.css" type="text/css" />
+	-->
+
 	<?=Phpr_View::block("head") ?>
 </head>
 <body class="page-admin-login">
@@ -28,10 +33,11 @@
 			<div class="login-panel" id="content">
 				<div id="content-inner">
 
-					<!-- Photo -->
+					<!-- //@TODO missing file not required?
 					<div class="photo" id="login_photo" style="display: none">
 						<img src="modules/admin/skins/default/assets/images/avatar.png" alt="" />
 					</div>
+					-->
 
 					<!-- Logo -->
 					<div class="logo" id="login_logo">
