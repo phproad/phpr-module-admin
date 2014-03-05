@@ -39,10 +39,15 @@
 					</div>
 					-->
 
-					<!-- Logo -->
-					<div class="logo" id="login_logo">
-						<img src="modules/admin/skins/default/assets/images/logo-login.png" alt="" />
-					</div>
+
+                        <!-- Logo -->
+                        <div class="logo" id="login_logo">
+                            <?
+                            $admin_logo = Admin_Config::get_logo();
+                            $admin_logo ? $admin_logo : 'modules/admin/skins/default/assets/images/logo-login.png'
+                            ?>
+                            <img src="<?=$admin_logo?>" alt="" />
+                        </div>
 
 					<?=Phpr_View::block("view") ?>
 
