@@ -17,31 +17,33 @@ var Admin_Page = (function(page, $){
 
 	page.initAutoComplete = function() {
 
-		_search_element.autocomplete({
-			minLength: 0,
-			appendTo: _container_element.find('>.dropdown'),
-			source: function (request, response) {
-				$.post(admin_url('admin/index/quicksearch'), request, response);
-			},
-			select: function(event, ui) {
-				LightLoadingIndicator().show();
-				_container_element.hide();
-				setTimeout(function() { window.location = ui.item.link; }, 100);
-			}
-		})
-		.data('ui-autocomplete')._renderItem = function(ul, item) {
-			var listElement = $('<li />')
-				anchor = $('<a />'),
-				icon = $('<i />').addClass('icon-'+item.icon).addClass('icon'),
-				desc = $('<span />').addClass('description');
+        if(_search_element.length){
+            _search_element.autocomplete({
+                minLength: 0,
+                appendTo: _container_element.find('>.dropdown'),
+                source: function (request, response) {
+                    $.post(admin_url('admin/index/quicksearch'), request, response);
+                },
+                select: function(event, ui) {
+                    LightLoadingIndicator().show();
+                    _container_element.hide();
+                    setTimeout(function() { window.location = ui.item.link; }, 100);
+                }
+            })
+            .data('ui-autocomplete')._renderItem = function(ul, item) {
+                var listElement = $('<li />')
+                    anchor = $('<a />'),
+                    icon = $('<i />').addClass('icon-'+item.icon).addClass('icon'),
+                    desc = $('<span />').addClass('description');
 
-			var content = item.label + '<small>' + item.item_name + '</small>';
+                var content = item.label + '<small>' + item.item_name + '</small>';
 
-			desc.html(content)
-			anchor.append(icon).append(desc);
-			listElement.append(anchor);
-			return listElement.appendTo(ul);
-		};
+                desc.html(content)
+                anchor.append(icon).append(desc);
+                listElement.append(anchor);
+                return listElement.appendTo(ul);
+            };
+        }
 
 	}
 
