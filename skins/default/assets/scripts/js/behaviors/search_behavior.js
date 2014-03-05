@@ -1,6 +1,6 @@
 var Admin_Page = (function(page, $){
 
-	page.constructor = $(document).ready(function() { 
+	page.constructor = $(document).ready(function() {
 		_container_element = $('#admin-tray-search');
 		_search_element = _container_element.find('input:first');
 
