@@ -2,7 +2,7 @@
 
 class Admin_Group extends Db_ActiveRecord
 {
-	const admin = 'administrator';
+	const super_admin = 'administrator';
 	
 	public $table_name = 'admin_groups';
 	

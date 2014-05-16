@@ -19,8 +19,8 @@ class Admin_User extends Phpr_User
 
     public $custom_columns = array('password_confirm'=>db_text, 'send_invitation'=>db_bool);
     protected $plain_password = null;
-    protected $is_administrator_cache = null;
-    protected $is_asministrator_on_load = null;
+    protected $is_super_administrator_cache = null;
+    protected $is_super_administrator_on_load = null;
 
     public $password_reset_mode = false;
 
@@ -54,7 +54,7 @@ class Admin_User extends Phpr_User
     public function define_form_fields($context = null)
     {
         if (!$this->is_new_record())
-            $this->is_asministrator_on_load = $this->is_administrator();
+            $this->is_super_administrator_on_load = $this->is_super_administrator();
 
         if ($context != 'mysettings')
         {
@@ -117,18 +117,18 @@ class Admin_User extends Phpr_User
         $current_user = Phpr::$security->get_user();
 
         //only super users can edit super user accounts
-        if($this->is_asministrator_on_load && !$current_user->is_administrator()){
+        if($this->is_super_administrator_on_load && !$current_user->is_super_administrator()){
             $this->validation->set_error('You cannot edit a super admin account, if you are not a super admin', 'rights', true);
         }
 
         //check user is allowed to grant super user status.
-        if ($this->rights[0] == 1 && !$current_user->is_administrator()){
+        if ($this->is_saving_a_super_admin() && !$current_user->is_super_administrator()){
             $this->validation->set_error('You cannot grant super admin rights unless you are super admin', 'rights', true);
         }
 
         //check current user is not removing their own super admin status
         if (!$this->is_new_record()){
-            if ($current_user && $current_user->id == $this->id && $this->is_asministrator_on_load && !$this->rights)
+            if ($current_user && $current_user->id == $this->id && $this->is_super_administrator_on_load && !$this->rights)
                 $this->validation->set_error('You cannot cancel super admin rights for your own user account.', 'rights', true);
         }
 
@@ -192,7 +192,7 @@ class Admin_User extends Phpr_User
         $current_user = Phpr::$security->get_user();
 
         //no delete super user account
-        if($this->is_asministrator_on_load){
+        if($this->is_super_administrator_on_load){
             throw new Phpr_ApplicationException("You cannot delete a super user account.");
         }
 
@@ -316,12 +316,25 @@ class Admin_User extends Phpr_User
     // Permissions
     //
 
-    public function is_administrator()
+    public function is_super_administrator()
     {
-        if ($this->is_administrator_cache !== null)
-            return $this->is_administrator_cache;
+        if ($this->is_super_administrator_cache !== null)
+            return $this->is_super_administrator_cache;
 
-        return $this->is_administrator_cache = $this->belongs_to_groups(Admin_Group::admin);
+        return $this->is_super_administrator_cache = $this->belongs_to_groups(Admin_Group::super_admin);
+    }
+
+    protected function is_saving_a_super_admin(){
+        //when saving rights, they are presented as an array.
+        $super_admin_group = Admin_Group::create()->find_by_code(Admin_Group::super_admin);
+        if(is_array($this->rights)){
+            foreach($this->rights as $right_id){
+                if($right_id == $super_admin_group->id){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     protected function load_user_permissions()
@@ -339,7 +352,7 @@ class Admin_User extends Phpr_User
 
     public function get_permission($module_id, $name)
     {
-        if ($this->is_administrator())
+        if ($this->is_super_administrator())
             return true;
 
         if (!is_array($name))
@@ -394,7 +407,7 @@ class Admin_User extends Phpr_User
             ? Phpr::$config->get("RESTRICT_MODULE_PERMISSION_EDIT", array())
             : array();
 
-        if(in_array($module_id,$block_permission_edit) && !$user->is_administrator()){
+        if(in_array($module_id,$block_permission_edit) && !$user->is_super_administrator()){
             return true;
         }
 
