@@ -20,6 +20,7 @@ class Admin_Html
 
 	public static function button($caption, $attributes = array(), $ajax_handler = null, $ajax_params = null, $form_element = null)
 	{
+        $icon = null;
 		$a_attrs = array('class' => 'btn');
 
 		if (is_array($attributes))
@@ -28,6 +29,11 @@ class Admin_Html
 			{
 				if ($key === 'class')
 					$value = 'btn '.$value;
+
+                if ($key === 'icon'){
+                    $icon = '<i class="icon-'.$value.'"></i> ';
+                    continue;
+                }
 				
 				$a_attrs[$key] = $value;
 			}
@@ -62,7 +68,7 @@ class Admin_Html
 			$attr_list = Phpr_Html::format_attributes($a_attrs, array('href' => $attributes));
 		}
 
-		return '<a '.$attr_list.'>'.$caption.'</a>';
+		return '<a '.$attr_list.'>'.$icon.$caption.'</a>';
 	}
 
 	/**
