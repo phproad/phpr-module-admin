@@ -34,7 +34,7 @@
 				</div>
                 <div class="logo">
                     <a href="<?=url('admin/users/mysettings/')?>">
-                        <img src="modules/admin/skins/<?= Admin_Config::get_theme_id() ?>/assets/images/avatar-blank.png" alt="" />
+                        <img src="<?= Admin_Gravatar::get_img_url($this->active_user) ?>" alt="<?= $this->active_user->short_name ?>'s Avatar" />
                     </a>
                 </div>
                 <a href="<?=url('admin/users/mysettings/')?>">
