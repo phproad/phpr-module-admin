@@ -41,13 +41,19 @@ class Admin_User extends Phpr_User
         $this->define_column('login', 'Login')->validation()->fn('trim')->required()->unique('Login name "%s" already in use. Please choose another login name.');
         $this->define_column('password', 'Password')->invisible()->validation();
         $this->define_column('password_confirm', 'Password Confirmation')->invisible()->validation();
-        $this->define_column('state', 'Status');
         $this->define_column('status', 'Status')->invisible();
         $this->define_column('last_login', 'Last Login')->date_format('%x %H:%M');
+
+        $this->define_column('time_zone', 'Time Zone')->default_invisible()->validation()->fn('trim');
 
         $this->define_column('send_invitation', 'Send invitation by email')->invisible();
 
         $this->define_multi_relation_column('rights', 'rights', 'Super Admin Rights', '@name')->default_invisible()->validation();
+
+        // Extensibility
+        $this->defined_column_list = array();
+        Phpr::$events->fire_event('admin:on_extend_user_model', $this, $context);
+        $this->api_added_columns = array_keys($this->defined_column_list);
 
     }
 
@@ -100,9 +106,19 @@ class Admin_User extends Phpr_User
 
             $this->add_form_field('password', 'left')->display_as(frm_password)->no_preview()->tab('My Settings');
             $this->add_form_field('password_confirm', 'right')->display_as(frm_password)->no_preview()->tab('My Settings');
+
+            $this->add_form_field('time_zone', 'left')->display_as(frm_dropdown)->tab('Location');
         }
 
         $tab = $context == 'mysettings' ? 'My Settings' : 'Contacts';
+
+        // Extensibility
+        Phpr::$events->fire_event('admin:on_extend_user_form', $this, $context);
+        foreach ($this->api_added_columns as $column_name){
+            $form_field = $this->find_form_field($column_name);
+            if ($form_field)
+                $form_field->options_method('get_added_field_options');
+        }
 
     }
 
@@ -154,7 +170,9 @@ class Admin_User extends Phpr_User
         }
 
 
-
+        if(empty($this->time_zone)){
+            $this->time_zone = Phpr::$config->get('TIMEZONE');
+        }
 
 
     }
@@ -217,6 +235,21 @@ class Admin_User extends Phpr_User
         $result[-1] = 'Disabled';
 
         return $result;
+    }
+
+    public function get_time_zone_options($key_value = -1)
+    {
+        $time_zones = Phpr\TimeZone::get_timezone_list();
+
+        if ($key_value != -1) {
+            if (!strlen($key_value))
+                return null;
+
+            return $time_zones[$key_value];
+        }
+
+        $time_zones[null] = 'Undefined';
+        return $time_zones;
     }
 
     //
