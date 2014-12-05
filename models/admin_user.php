@@ -419,6 +419,22 @@ class Admin_User extends Phpr_User
         return $result;
     }
 
+    public static function get_super_administrators()
+    {
+        $users = self::create()->find_all();
+        $result = array();
+
+        foreach ($users as $user) {
+            if ($user->status == self::disabled)
+                continue;
+
+            if ($user->is_super_administrator())
+                $result[] = $user;
+        }
+
+        return $result;
+    }
+
     private function load_permissions_ui()
     {
         $modules = Core_Module_Manager::get_modules();

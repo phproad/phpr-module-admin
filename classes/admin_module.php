@@ -13,7 +13,13 @@ class Admin_Module extends Core_Module_Base
         );
     }
 
-    public function build_admin_menu($menu)
+    public function subscribe_events(){
+
+        Phpr::$events->add_event('phpr:on_execute_cron_exception', $this, 'cron_exception_alert_super_admins');
+    }
+
+
+        public function build_admin_menu($menu)
     {
         $dash = $menu->add('dash', 'Dashboard', '/', 100)->icon('dashboard')->permission('access_dashboard');
 
@@ -58,6 +64,21 @@ class Admin_Module extends Core_Module_Base
             'search_fields' => array('login', 'email', 'first_name', 'last_name'),
             'link' => url('admin/users/edit/%s')
         ));
+    }
+
+    public function cron_exception_alert_super_admins($exception){
+
+        trace_log('triggeres_admin_cron_alert');
+
+        $alert_admins = Phpr::$config->get('CRON_FAIL_ALERT_ADMIN', false);
+
+        if($alert_admins) {
+            $admins = Admin_User::get_super_administrators();
+            foreach($admins as $admin){
+                Notify::trigger('admin:error_alert',array('user'=>$admin,'error'=>$exception));
+            }
+        }
+
     }
 
 }
