@@ -1,0 +1,106 @@
+<div id="error-content">
+    <h1>Unhandled Error!</h1>
+
+    <div id="error-wrapper">
+        <div class="alert alert-error"><?= $error->message ? $error->message : 'NULL' ?></div>
+
+        <? if ($error->hint): ?>
+        <div class="alert alert-hint">
+            <h3>Hint</h3>
+            <p><?= $error->hint ?></p>
+        </div>
+        <? endif ?>
+
+        <table class="error-summary">
+            <tbody>
+            <tr class="first">
+                <th>Document</th>
+                <td><?= $error->document ?></td>
+            </tr>
+            <tr>
+                <th>Document type</th>
+                <td>
+                    <?= $error->document_type ?>
+                </td>
+            </tr>
+            <tr>
+                <th>Line</th>
+                <td><?= $error->line ?></td>
+            </tr>
+            <tr class="last">
+                <th>Exception class</th>
+                <td><?= $error->class_name ?></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <? if (count($error->code_highlight->lines)): ?>
+        <div class="details">
+            <h3 class="separated">Code Highlight</h3>
+            <div class="code">
+							<pre class="brush:<?= $error->code_highlight->brush ?>;toolbar:false;wrap-lines:false;tab-size:3;first-line:<?= $error->code_highlight->start_line+1 ?>;highlight:[<?= $error->code_highlight->error_line+1 ?>]">
+							<? foreach ($error->code_highlight->lines as $line): ?>
+                                <?= strlen(trim($line)) ? Phpr_Html::encode($line) : "&nbsp;".PHP_EOL; ?>
+                                <? endforeach ?>
+							</pre>
+            </div>
+        </div>
+        <? endif ?>
+
+        <div class="details last">
+            <h3 class="separated">Call Stack</h3>
+            <table class="call_stack">
+                <? if ($error->is_document): ?>
+                <thead>
+                <tr>
+                    <th class="first record_number">#</th>
+                    <th>Document</th>
+                    <th class="last">Type</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?
+								$last_index = count($error->call_stack) - 1;
+                ?>
+
+                <? foreach ($error->call_stack as $index => $stack_item): ?>
+                <tr class="<?=Phpr_Html::zebra('callstack') ?> <?= $index == $last_index ? 'last' : null ?>">
+                    <td class="first"><?= $stack_item->id ?></td>
+                    <td><?= $stack_item->document ?></td>
+                    <td class="last"><?= $stack_item->type ?></td>
+                </tr>
+                <? endforeach ?>
+                </tbody>
+                <? else: ?>
+                <thead>
+                <tr>
+                    <th class="first record_number">#</th>
+                    <th>Code</th>
+                    <th>Document</th>
+                    <th class="last">Line</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?
+									$last_index = count($error->call_stack) - 1;
+                ?>
+                <? foreach ($error->call_stack as $index => $stack_item): ?>
+                <?
+										if (strlen($stack_item->args))
+                $args = '<span class="arguments">' . Phpr_Html::encode($stack_item->args) . '</span>';
+                else
+                $args = '()';
+                ?>
+                <tr class="<?=Phpr_Html::zebra('callstack') ?> <?= $index == $last_index ? 'last' : null ?>">
+                    <td class="first"><?= $stack_item->id ?></td>
+                    <td><?= $stack_item->function_name . '(' . $args . ')' ?></td>
+                    <td><?= $stack_item->document ?></td>
+                    <td class="last"><?= $stack_item->line ?></td>
+                </tr>
+                <? endforeach ?>
+                </tbody>
+                <? endif ?>
+            </table>
+        </div>
+    </div>
+</div>

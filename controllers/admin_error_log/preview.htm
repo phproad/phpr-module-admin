@@ -1,22 +1,65 @@
 <? Admin_Breadcrumb::add('Settings', 'admin/settings')->add('Error Log', 'admin/error_log')->add($this->app_page_title);?>
-<? Phpr_View::begin_block("view") ?>
+
+
+<link rel="stylesheet" type="text/css" href="/modules/cms/assets/stylesheets/css/error_page.css" />
+
+<script type="text/javascript">
+    var application_root_dir = '<?=Phpr::$request->get_subdirectory() ?>';
+</script>
+
+<?
+			$phpr_url = Phpr::$config->get('PHPR_URL', 'phpr');
+?>
+
+<link rel="stylesheet" type="text/css" href="/modules/cms/resources/css/error.css" />
+
+<script type="text/javascript" src="/<?= $phpr_url?>/vendor/syntaxhighlighter/scripts/shCore.js"></script>
+<script type="text/javascript" src="/<?= $phpr_url?>/vendor/syntaxhighlighter/scripts/shBrushPhp.js"></script>
+<script type="text/javascript" src="/<?= $phpr_url?>/vendor/syntaxhighlighter/scripts/shBrushXml.js"></script>
+
+<link type="text/css" rel="stylesheet" href="/<?= $phpr_url?>/vendor/syntaxhighlighter/styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="/<?= $phpr_url?>/vendor/syntaxhighlighter/styles/shThemeDefault.css"/>
+
+<script type="text/javascript">
+    SyntaxHighlighter.all();
+    SyntaxHighlighter.defaults.gutter = true;
+</script>
+
 
 <? if (!isset($fatal_error)): ?>
-	<div class="form-fluid">
-		<?=form_open()?>
-			<? $this->form_render_preview() ?>
+    <div class="scoreboard-report">
+        <ul>
+            <li>
+                <p>Error log ID</p>
+                <h3><?= $form_model->id ?></h3>
+            </li>
+            <li class="last">
+                <p>Date and time</p>
+                <h3><?= Phpr_Date::display($form_model->record_datetime, '%x %X') ?></h3>
+            </li>
+        </ul>
+    </div>
 
-			<div id="fixed-toolbar" class="top">
-				<div class="form-toolbar">
-					<?= admin_button('Return to the error list', url('/admin/error_log')) ?>
-				</div>
-			</div>
-			
-		<?=form_close()?>
-	</div>
+
+    <div id="fixed-toolbar" class="top">
+        <div class="form-toolbar">
+            <?= admin_button('Return to the error list', url('/admin/error_log')) ?>
+        </div>
+    </div>
+
+
+
 <? else: ?>
-	<?= flash() ?>
-	<p><a href="<?= url('admin/error_log') ?>">Return to the error list</a></p>
-<? endif ?>
+    <?= flash() ?>
+    <p><a href="<?= url('admin/error_log') ?>">Return to the error list</a></p>
+    <? endif ?>
 
-<? Phpr_View::end_block() ?>
+    <? if($form_model->details): ?>
+    <div id="error-details" class="error-box list-section">
+        <?
+        $this->view_data['error'] = Phpr_Error_Log::decode_error_details($form_model->details);
+        $this->display_partial('error_details');
+        ?>
+    </div>
+<? endif ?>
+<div class="clear"></div>

@@ -6,7 +6,7 @@ class Admin_Error_Log extends Admin_Settings_Controller
 	public $list_model_class = 'Phpr_Trace_Log_Record';
 	public $list_record_url = null;
 
-	public $form_preview_title = 'Preview';
+	public $form_preview_title = false;
 	public $form_model_class = 'Phpr_Trace_Log_Record';
 	public $form_not_found_message = 'Record not found';
 	public $form_redirect = null;

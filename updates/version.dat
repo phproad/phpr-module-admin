@@ -9,3 +9,4 @@
 #9|1.0.9 Fixed minor issue when identifying if an admin user account is attempting to alter a super admin account.
 #10|1.0.10 Minor Update Admin_Html::button. Allow for icons.
 #11|1.0.11 Allow user to set their time zone on their profile/settings page.
+#12|1.0.12 Improved Error Log Preview.
