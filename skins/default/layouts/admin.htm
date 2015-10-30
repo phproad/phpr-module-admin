@@ -2,7 +2,7 @@
 <html id="home" lang="en">
 <head>
 	<meta charset=utf-8 />
-	<meta name="viewport" content="width=990" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title><?=strlen($this->app_page_title) ? h($this->app_page_title).' | ' : null ?> <?=c('site_name')?></title>
 	<? $this->display_layout('head') ?>
 	<?=Phpr_View::block("head") ?>
@@ -67,8 +67,8 @@
 
 					<? if ($this->app_page_title): ?>
 						<div class="page-header">
-							<? if ($this->app_module_name && false): // disabled ?>
-								<h1><?=h($this->app_page_title) ?> <small><?=h($this->app_module_name)?></small></h1>
+							<? if ($this->app_page_subheader): ?>
+								<h1><?=h($this->app_page_title) ?> <small><?=h($this->app_page_subheader)?></small></h1>
 							<? else: ?>
 								<h1><?=h($this->app_page_title) ?></h1>
 							<? endif ?>

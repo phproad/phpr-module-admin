@@ -107,7 +107,7 @@ class Admin_User extends Phpr_User
             $this->add_form_field('password', 'left')->display_as(frm_password)->no_preview()->tab('My Settings');
             $this->add_form_field('password_confirm', 'right')->display_as(frm_password)->no_preview()->tab('My Settings');
 
-            $this->add_form_field('time_zone', 'left')->display_as(frm_dropdown)->tab('Location');
+            $this->add_form_field('time_zone', 'left')->display_as(frm_dropdown)->tab('Time Zone');
         }
 
         $tab = $context == 'mysettings' ? 'My Settings' : 'Contacts';
@@ -121,6 +121,21 @@ class Admin_User extends Phpr_User
         }
 
     }
+
+    //
+    // Extensibility
+    //
+
+    public function get_added_field_options($db_name, $current_key_value = -1) {
+        $result = Phpr::$events->fire_event('admin:on_get_added_field_options', $db_name, $current_key_value);
+        foreach ($result as $options) {
+            if (is_array($options) || (strlen($options && $current_key_value != -1)))
+                return $options;
+        }
+
+        return false;
+    }
+
 
 
     //

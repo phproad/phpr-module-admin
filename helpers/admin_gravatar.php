@@ -10,6 +10,6 @@ class Admin_Gravatar{
             if(!is_a($user,'Admin_User')){
                 return Admin_Config::get_theme_id().'/assets/images/avatar-blank.png';
             }
-            return 'http://www.gravatar.com/avatar/'.md5( strtolower( trim( $user->email ) ) );
+            return 'https://www.gravatar.com/avatar/'.md5( strtolower( trim( $user->email ) ) );
         }
 }

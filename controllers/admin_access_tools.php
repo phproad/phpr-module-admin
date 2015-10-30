@@ -73,7 +73,7 @@ class Admin_Access_Tools extends Admin_Controller
 				if (!file_exists($full_path) || !is_file($full_path)) {
 					$this->view_data['file_contents'] = '';
 				}
-				else if (!$this->view_data['file_contents'] = file_get_contents($full_path)) {
+				else if (!($this->view_data['file_contents'] = file_get_contents($full_path))) {
 					throw new Phpr_ApplicationException('Could not open the file!');
 				}
 

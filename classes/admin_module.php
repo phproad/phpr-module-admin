@@ -68,7 +68,7 @@ class Admin_Module extends Core_Module_Base
 
     public function cron_exception_alert_super_admins($exception){
 
-        trace_log('triggeres_admin_cron_alert');
+        //trace_log('triggered_admin_cron_alert');
 
         $alert_admins = Phpr::$config->get('CRON_FAIL_ALERT_ADMIN', false);
 
