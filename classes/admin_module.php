@@ -68,14 +68,16 @@ class Admin_Module extends Core_Module_Base
 
     public function cron_exception_alert_super_admins($exception){
 
-        //trace_log('triggered_admin_cron_alert');
-
         $alert_admins = Phpr::$config->get('CRON_FAIL_ALERT_ADMIN', false);
 
         if($alert_admins) {
             $admins = Admin_User::get_super_administrators();
             foreach($admins as $admin){
-                Notify::trigger('admin:error_alert',array('user'=>$admin,'error'=>$exception));
+                try {
+                    Notify::trigger( 'admin:error_alert', array( 'user' => $admin, 'error' => $exception ) );
+                } catch (Exception $e){
+                    //ignore
+                }
             }
         }
 
