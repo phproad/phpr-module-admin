@@ -2,7 +2,7 @@
 
 class Admin_Users extends Admin_Controller
 {
-    public $implement = 'Db_List_Behavior, Db_Form_Behavior';
+    public $implement = 'Db_List_Behavior, Db_Form_Behavior, Db_Filter_Behavior';
     public $list_model_class = 'Admin_User';
     public $list_record_url = null;
 
@@ -20,6 +20,16 @@ class Admin_Users extends Admin_Controller
     public $list_search_enabled = true;
     public $list_search_fields = array('@first_name', '@last_name', '@email', '@login');
     public $list_search_prompt = 'find users by name, login or email';
+	public $list_render_filters = true;
+
+	public $filter_list_title = 'Filter items';
+	public $filter_on_apply = 'listReload();';
+	public $filter_on_remove = 'listReload();';
+	public $filter_filters = array();
+
+	public $filter_switchers = array(
+		'hide_disabled'=>array('name'=>'Hide disabled accounts', 'class_name'=>'Admin_HideDisabledAccountsSwitcher')
+	);
 
     protected $required_permissions = array('admin:manage_users');
 
@@ -40,6 +50,13 @@ class Admin_Users extends Admin_Controller
     {
         $this->app_page_title = 'Administrators';
     }
+
+
+	public function list_prepare_data(){
+		$obj = new Admin_User();
+		$this->filter_apply_to_model($obj);
+		return $obj;
+	}
 
     //
     // My settings

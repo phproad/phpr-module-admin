@@ -42,6 +42,7 @@ class Admin_User extends Phpr_User
         $this->define_column('password', 'Password')->invisible()->validation();
         $this->define_column('password_confirm', 'Password Confirmation')->invisible()->validation();
         $this->define_column('status', 'Status')->invisible();
+		$this->define_column('state', 'Status');
         $this->define_column('last_login', 'Last Login')->date_format('%x %H:%M');
 
         $this->define_column('time_zone', 'Time Zone')->default_invisible()->validation()->fn('trim');
