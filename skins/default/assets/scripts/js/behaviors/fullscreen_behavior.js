@@ -41,6 +41,7 @@ var Admin_Page = (function(page, $){
 			if ($adminTrayFullscreen.length && (typeof sessionStorage !== 'undefined')) {
 				if(sessionStorage.getItem("_is_fullscreen") == 1 ){
 					$('.tray-link').trigger('click');
+					$adminTrayFullscreen.show();
 				}
 			}
 		});
