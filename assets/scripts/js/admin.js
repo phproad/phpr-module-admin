@@ -55,6 +55,7 @@ var LightLoadingIndicator = function(options) {
 	return o;
 };
 
+
 //
 // Initialize tips
 //

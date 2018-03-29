@@ -6,7 +6,7 @@ function admin_style_forms() {
 	var $ = jQuery;
 	$('select').each(function(){
 		if (!$(this).hasClass('no-styling')) {
-			var options = {},
+			var options = {disable_search_threshold: 10},
 				self = this,
 				select = $(this);
 
@@ -20,8 +20,9 @@ function admin_style_forms() {
 
 			// select.off('.chosen-handler');
 			// select.on('change.chosen-handler', function(){
-			// 	$(this).trigger('change');
+			// $(this).trigger('change');
 			// });
+            //console.log(options);
 
 			select.chosen(options);
 		}
@@ -73,12 +74,6 @@ jQuery.fn.extend({
 
 	select_update: function() {
 		jQuery(this).trigger("list:updated");
-	},
-
-	select_focus: function() {
-		var el = jQuery(this).parent().find('a.chzn-single');
-		if (el.length > 0) 
-			el[0].focus();
 	}
 });
 

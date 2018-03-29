@@ -2,7 +2,7 @@
 <html id="home" lang="en">
 <head>
 	<meta charset=utf-8 />
-	<meta name="viewport" content="width=990" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title><?=strlen($this->app_page_title) ? h($this->app_page_title).' | ' : null ?> <?=c('site_name')?></title>
 	<? $this->display_layout('head') ?>
 	<?=Phpr_View::block("head") ?>
@@ -32,12 +32,16 @@
 				<div class="tray-icons">
 					<? $this->display_layout('tray') ?>
 				</div>
-				<div class="logo">
-					<img src="modules/admin/skins/<?= Admin_Config::get_theme_id() ?>/assets/images/avatar-blank.png" alt="" />
-				</div>
-				<h5 class="active-user">
-					<?=$this->active_user->short_name?>
-				</h5>
+                <div class="logo">
+                    <a href="<?=url('admin/users/mysettings/')?>">
+                        <img src="<?= Admin_Gravatar::get_img_url($this->active_user) ?>" alt="<?= $this->active_user->short_name ?>'s Avatar" />
+                    </a>
+                </div>
+                <a href="<?=url('admin/users/mysettings/')?>">
+                    <h5 class="active-user">
+                        <?=$this->active_user->short_name?>
+                    </h5>
+                </a>
 			</div>
 		</div>
 		
@@ -63,8 +67,8 @@
 
 					<? if ($this->app_page_title): ?>
 						<div class="page-header">
-							<? if ($this->app_module_name && false): // disabled ?>
-								<h1><?=h($this->app_page_title) ?> <small><?=h($this->app_module_name)?></small></h1>
+							<? if ($this->app_page_subheader): ?>
+								<h1><?=h($this->app_page_title) ?> <small><?=h($this->app_page_subheader)?></small></h1>
 							<? else: ?>
 								<h1><?=h($this->app_page_title) ?></h1>
 							<? endif ?>

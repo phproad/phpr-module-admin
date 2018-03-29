@@ -1,12 +1,5 @@
 var Admin_Page = (function(page, $){
 
-	page.constructor = $(document).ready(function() { 
-
-		$('#admin-tray-fullscreen').on('onTrayAfterOpen', function(){
-			Admin_Page.fsToggle();
-		});
-
-	});
 
 	var _is_fullscreen = false,
 		_original_offset_top = 0;
@@ -15,6 +8,9 @@ var Admin_Page = (function(page, $){
 	page.fsToggle = function() {
 
 		_is_fullscreen = (_is_fullscreen) ? false : true;
+		if(typeof sessionStorage !== 'undefined'){
+			sessionStorage.setItem("_is_fullscreen", _is_fullscreen ? 1 : 0);
+		}
 		
 		if (_is_fullscreen) {
 			_original_offset_top = $("#fixed-toolbar").css('top');
@@ -31,7 +27,26 @@ var Admin_Page = (function(page, $){
 
 		if (!_is_fullscreen)
 			Admin_Page.trayHide();
-	}
+	};
+
+
+	page.constructor = $(document).ready(function() {
+
+		var $adminTrayFullscreen = $("#admin-tray-fullscreen");
+		$adminTrayFullscreen.on('onTrayAfterOpen', function(){
+			Admin_Page.fsToggle();
+		});
+
+		$('#site-header .tray-icons > ul').on('onTrayInit', function() {
+			if ($adminTrayFullscreen.length && (typeof sessionStorage !== 'undefined')) {
+				if(sessionStorage.getItem("_is_fullscreen") == 1 ){
+					$('.tray-link').trigger('click');
+					$adminTrayFullscreen.show();
+				}
+			}
+		});
+
+	});
 
 	return page;
 }(Admin_Page || {}, jQuery));

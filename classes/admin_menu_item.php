@@ -88,8 +88,13 @@ class Admin_Menu_Item
 		$user = Phpr::$security->get_user();
 
 		foreach ($this->permission as $permission) {
-			
-			if ($user->get_permission($this->module_id, $permission))
+			$module_id = $this->module_id;
+			if(strpos($permission,':')){
+				$permission_parts = explode(':',$permission);
+				$module_id = $permission_parts[0];
+				$permission = $permission_parts[1];
+			}
+			if ($user->get_permission($module_id, $permission))
 				return true;
 		}
 

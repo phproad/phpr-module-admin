@@ -104,7 +104,7 @@ class Admin_Controller extends Phpr_Controller
 					}
 				}
 
-				if (!$permission_found)
+				if (!$permission_found && !(is_array($this->access_exceptions) && in_array(Phpr::$router->action, $this->access_exceptions)))
 					Phpr::$response->redirect(url('/'));
 			}
 		}
