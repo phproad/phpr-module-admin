@@ -56,6 +56,7 @@ var Admin_Page = (function(page, $){
 			$(this).stop().animate({ width: container_width }, _tray_delay * 2);
 			page.trayIconsHide();
 		});
+		container.trigger('onTrayInit');
 	}
 
 	page.trayIconsShow = function() {

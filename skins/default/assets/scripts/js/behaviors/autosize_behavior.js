@@ -29,9 +29,9 @@ var Admin_Page = (function(page, $){
 		},
 		_poll_object = null;
 
- 
+
 	var _breakpoint_menu_visible = false;
-	
+
 	// Public
 	page.breakpointSize = 979;
 
@@ -45,7 +45,7 @@ var Admin_Page = (function(page, $){
 		_sidenav = $('#site-sidenav');
 		_footer = $('#site-footer');
 		_fixed_toolbar = $('#fixed-toolbar');
-		
+
 		page.asSetCanvas();
 		page.asSetScrollbars();
 		page.asUpdateBreakpoint();
@@ -54,7 +54,7 @@ var Admin_Page = (function(page, $){
 			page.asSetCanvas();
 			page.asUpdateScrollbars();
 			page.asUpdateBreakpoint();
-		}); 
+		});
 
 		page.asInitScrollbars();
 
@@ -67,15 +67,15 @@ var Admin_Page = (function(page, $){
 	});
 
 	// Canvas
-	// 
+	//
 
 	page.asCalculateSize = function() {
 		_top_offset = 0;
 		if (_header.is(':visible'))
-			  _top_offset += _header.outerHeight();
+			_top_offset += _header.outerHeight();
 
 		if (_footer.is(':visible'))
-			  _top_offset += _footer.outerHeight();
+			_top_offset += _footer.outerHeight();
 
 		_top_offset_with_content = _top_offset;
 
@@ -90,7 +90,7 @@ var Admin_Page = (function(page, $){
 
 		if (_subnav.is(':visible') || page.checkBreakpoint())
 			_left_offset += _subnav.outerWidth();
-		
+
 		if (_sidenav.is(':visible'))
 			_right_offset += _sidenav.outerWidth();
 
@@ -110,7 +110,7 @@ var Admin_Page = (function(page, $){
 			});
 
 			// Fixed toolbar
-			_fixed_toolbar.css({ 
+			_fixed_toolbar.css({
 				width: (_window_width - _left_offset - _right_offset) + "px",
 				left: _left_offset + "px"
 			});
@@ -125,7 +125,7 @@ var Admin_Page = (function(page, $){
 	}
 
 	// Scrollbars
-	// 
+	//
 
 	page.asInitScrollbars = function() {
 		// Nav scrollbars
@@ -138,7 +138,7 @@ var Admin_Page = (function(page, $){
 		var titleHeight = $("#site-subnav > .title").outerHeight();
 		$("#site-subnav-scroll-area").css("height", (_window_height - _top_offset - titleHeight) + "px");
 	}
-	
+
 	page.asUpdateScrollbars = function() {
 		page.asSetScrollbars();
 		// Nav scrollbars
@@ -155,8 +155,8 @@ var Admin_Page = (function(page, $){
 	}
 
 	// Breakpoint
-	// 
-	 
+	//
+
 	page.asUpdateBreakpoint = function() {
 		if (!page.checkBreakpoint()) {
 			page.asToggleMenu(true);
@@ -176,7 +176,7 @@ var Admin_Page = (function(page, $){
 	page.asToggleMenu = function(force) {
 		if (_mainnav.css('visibility') == 'visible' && !force) {
 			_mainnav.css({ 'visibility': 'hidden' });
-			_subnav.css({ 'visibility': 'hidden' });        
+			_subnav.css({ 'visibility': 'hidden' });
 			_breakpoint_menu_visible = false;
 		} else {
 			_mainnav.css({ 'visibility': 'visible' });
@@ -189,9 +189,9 @@ var Admin_Page = (function(page, $){
 	page.checkBreakpoint = function() {
 		return _window.width() < page.breakpointSize;
 	}
-	
+
 	// Internals
-	// 
+	//
 
 	var _is_dom_resized = function() {
 		height = jQuery('body').height();
@@ -205,18 +205,18 @@ var Admin_Page = (function(page, $){
 	// so this throws off some calculations and produces scrollbars
 	// if we pump up our content, then release it, Chrome catches up
 	var _webkit_fix = function() {
-		_content.css({ 
-			overflow: 'hidden', 
+		_content.css({
+			overflow: 'hidden',
 			height: _window_height + 'px'
 		});
 
 		setTimeout(function(){
-			_content.css({ 
+			_content.css({
 				height: 'auto',
-				overflow: 'visible' 
+				overflow: 'visible'
 			});
 		}, 100);
-	}    
+	}
 
 	var _set_loaded_state = function() {
 		if (_is_loaded)
